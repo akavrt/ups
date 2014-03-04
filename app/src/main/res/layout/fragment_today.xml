@@ -7,8 +7,8 @@
         style="@style/MarginPoint"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:paddingLeft="@dimen/card_margin"
-        android:paddingRight="@dimen/card_margin">
+        android:paddingLeft="@dimen/container_padding"
+        android:paddingRight="@dimen/container_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,20 +19,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/layout_counter"
-                android:layout_marginTop="@dimen/card_margin" />
+                android:layout_marginTop="@dimen/container_padding" />
 
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/layout_today"
-                android:layout_marginTop="@dimen/card_margin" />
+                android:layout_marginTop="@dimen/container_padding" />
 
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/layout_next_training"
-                android:layout_marginTop="@dimen/card_margin"
-                android:layout_marginBottom="@dimen/card_margin" />
+                android:layout_marginTop="@dimen/container_padding"
+                android:layout_marginBottom="@dimen/container_padding" />
 
         </LinearLayout>
 

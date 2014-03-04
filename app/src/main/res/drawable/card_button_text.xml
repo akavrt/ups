@@ -3,7 +3,7 @@
     <item
         android:state_focused="true"
         android:state_pressed="false"
-        android:color="@color/accent_1_relaxed" />
+        android:color="@color/card_primary_text" />
     <item
         android:state_focused="true"
         android:state_pressed="true"
@@ -12,5 +12,5 @@
         android:state_focused="false"
         android:state_pressed="true"
         android:color="@android:color/white" />
-    <item android:color="@color/accent_1_relaxed" />
+    <item android:color="@color/card_primary_text" />
 </selector>
