@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ups</string>
+    <string name="title_activity_main">Pull-ups counter</string>
+    <string name="action_settings">Settings</string>
+    <string name="training">Training</string>
+    <string name="stats">Statistics</string>
+    <string name="section_week">Week</string>
+    <string name="section_month">Month</string>
+    <string name="section_all_time">All time</string>
+    <string name="next_training">Next training</string>
+    <string name="today">Today</string>
+    <string name="clear_stats">Clear statistics</string>
+    <string name="default_value">0</string>
+    <string name="trainings">Sets</string>
+    <string name="total">Pull-ups</string>
+    <string name="record">Record</string>
+    <string name="start_counting">Start counting</string>
+    <string name="stop_counting">Start counting</string>
+    <string name="next_training_date_stub">Unknown</string>
+    <string name="counter">Counter</string>
+    <string name="pull_ups">pull-ups</string>
+    <string name="change_schedule">Change schedule</string>
+
+</resources>

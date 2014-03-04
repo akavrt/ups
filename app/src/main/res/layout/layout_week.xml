@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardGroup" >
+
+    <TextView
+        android:id="@+id/section_week"
+        android:text="@string/section_week"
+        style="@style/SectionTitle" />
+
+    <TextView
+        android:id="@+id/week_total_delta"
+        android:layout_below="@id/section_week"
+        style="@style/DeltaValue" />
+
+    <TextView
+        android:id="@+id/week_total"
+        android:layout_toLeftOf="@id/week_total_delta"
+        android:layout_below="@id/section_week"
+        style="@style/CurrentValue" />
+
+    <TextView
+        android:id="@+id/week_total_title"
+        android:text="@string/total"
+        android:layout_toLeftOf="@id/week_total"
+        android:layout_below="@id/section_week"
+        style="@style/MetricTitle" />
+
+    <TextView
+        android:id="@+id/week_record_delta"
+        android:layout_below="@id/week_total_delta"
+        style="@style/DeltaValue" />
+
+    <TextView
+        android:id="@+id/week_record"
+        android:layout_toLeftOf="@id/week_record_delta"
+        android:layout_below="@id/week_total_delta"
+        style="@style/CurrentValue" />
+
+    <TextView
+        android:id="@+id/week_record_title"
+        android:text="@string/record"
+        android:layout_toLeftOf="@id/week_record"
+        android:layout_below="@id/week_total_delta"
+        style="@style/MetricTitle" />
+
+</RelativeLayout>

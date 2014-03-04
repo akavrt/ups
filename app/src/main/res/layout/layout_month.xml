@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardGroup" >
+
+    <TextView
+        android:id="@+id/section_month"
+        android:text="@string/section_month"
+        style="@style/SectionTitle" />
+
+    <!-- Sets -->
+    <TextView
+        android:id="@+id/month_sets_delta"
+        android:layout_below="@id/section_month"
+        style="@style/DeltaValue" />
+
+    <TextView
+        android:id="@+id/month_sets"
+        android:layout_toLeftOf="@id/month_sets_delta"
+        android:layout_below="@id/section_month"
+        style="@style/CurrentValue" />
+
+    <TextView
+        android:id="@+id/month_sets_title"
+        android:text="@string/trainings"
+        android:layout_toLeftOf="@id/month_sets"
+        android:layout_below="@id/section_month"
+        style="@style/MetricTitle" />
+
+    <!-- Overall pull-ups -->
+    <TextView
+        android:id="@+id/month_total_delta"
+        android:layout_below="@id/month_sets_delta"
+        style="@style/DeltaValue" />
+
+    <TextView
+        android:id="@+id/month_total"
+        android:layout_toLeftOf="@id/month_total_delta"
+        android:layout_below="@id/month_sets_delta"
+        style="@style/CurrentValue" />
+
+    <TextView
+        android:id="@+id/month_total_title"
+        android:text="@string/total"
+        android:layout_toLeftOf="@id/month_total"
+        android:layout_below="@id/month_sets_delta"
+        style="@style/MetricTitle" />
+
+    <!-- Record -->
+    <TextView
+        android:id="@+id/month_record_delta"
+        android:layout_below="@id/month_total_delta"
+        style="@style/DeltaValue" />
+
+    <TextView
+        android:id="@+id/month_record"
+        android:layout_toLeftOf="@id/month_record_delta"
+        android:layout_below="@id/month_total_delta"
+        style="@style/CurrentValue" />
+
+    <TextView
+        android:id="@+id/month_record_title"
+        android:text="@string/record"
+        android:layout_toLeftOf="@id/month_record"
+        android:layout_below="@id/month_total_delta"
+        style="@style/MetricTitle" />
+
+</RelativeLayout>

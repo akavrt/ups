@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardGroupWithButton" >
+
+    <TextView
+        android:id="@+id/section_next_training"
+        android:text="@string/next_training"
+        style="@style/SectionTitle" />
+
+    <TextView
+        android:id="@+id/next_training_date"
+        android:layout_below="@id/section_next_training"
+        android:text="@string/next_training_date_stub"
+        android:layout_marginBottom="@dimen/card_padding"
+        style="@style/MetricTitle" />
+
+    <!-- Change schedule-->
+    <View
+        android:id="@+id/change_schedule_divider"
+        android:layout_below="@id/next_training_date"
+        android:layout_marginLeft="@dimen/card_padding_relaxed"
+        android:layout_marginRight="@dimen/card_padding_relaxed"
+        style="@style/Divider" />
+
+    <Button
+        android:id="@+id/change_schedule"
+        android:layout_below="@id/change_schedule_divider"
+        android:text="@string/change_schedule"
+        style="@style/CardButton" />
+
+</RelativeLayout>

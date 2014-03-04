@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_1">#4482d0</color>
+    <color name="accent_1_relaxed">#699bd9</color>
+
+    <color name="window_background">#e5e5e5</color>
+
+    <color name="tabs_separator">#d0d0d0</color>
+    <color name="action_bar_tabs_text">#505050</color>
+
+    <color name="card_background">@android:color/white</color>
+    <color name="card_shadow">#ccc</color>
+
+    <color name="card_primary_text">#707070</color>
+    <color name="card_secondary_text">#b8b8b8</color>
+
+    <color name="section_title">@color/card_primary_text</color>
+
+    <!--button colors-->
+    <color name="btn_pressed">#e1699bd9</color>
+    <!--<color name="btn_normal">#66999999</color>-->
+    <color name="btn_normal">@android:color/transparent</color>
+    <color name="btn_focused">#66699bd9</color>
+    <color name="btn_disabled">#27999999</color>
+    <color name="btn_disabled_focused">#1f699bd9</color>
+
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CardGroup" >
+
+    <TextView
+        android:id="@+id/section_today"
+        android:text="@string/today"
+        style="@style/SectionTitle" />
+
+    <TextView
+        android:id="@+id/today_sets"
+        android:layout_below="@id/section_today"
+        android:text="@string/next_training_date_stub"
+        style="@style/MetricTitle" />
+
+</RelativeLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:colorBackground">@color/window_background</item>
+
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
+
+        <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
+        <item name="actionBarTabStyle">@style/MyActionBarTabs</item>
+
+        <item name="android:actionBarTabTextStyle">@style/MyTabText</item>
+        <item name="actionBarTabTextStyle">@style/MyTabText</item>
+
+        <item name="android:actionBarDivider">@android:color/darker_gray</item>
+        <item name="actionBarDivider">@android:color/darker_gray</item>
+
+        <item name="android:actionBarTabBarStyle">@style/MyTabBar</item>
+        <item name="actionBarTabBarStyle">@style/MyTabBar</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/accent_1</item>
+        <item name="background">@color/accent_1</item>
+
+        <item name="android:backgroundStacked">@color/window_background</item>
+        <item name="backgroundStacked">@color/window_background</item>
+    </style>
+
+    <style name="MyActionBarTabs"
+        parent="@style/Widget.AppCompat.Light.ActionBar.TabView.Inverse">
+        <item name="android:background">@drawable/actionbar_tab_indicator</item>
+        <item name="background">@drawable/actionbar_tab_indicator</item>
+    </style>
+
+    <style name="MyTabBar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.TabBar.Inverse">
+        <item name="android:divider">?android:attr/dividerVertical</item>
+    </style>
+
+    <style name="MyTabText"
+        parent="@style/Widget.AppCompat.Light.ActionBar.TabText.Inverse">
+        <item name="android:textColor">@color/action_bar_tabs_text</item>
+    </style>
+
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+
+    <style name="CardGroupWithButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/card_padding</item>
+        <item name="android:paddingBottom">@dimen/card_with_button_bottom_padding</item>
+        <item name="android:background">@drawable/card_background</item>
+    </style>
+
+    <style name="CardGroup" parent="@style/CardGroupWithButton">
+        <item name="android:paddingBottom">@dimen/card_padding</item>
+    </style>
+
+    <style name="SectionTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/section_title</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:layout_marginLeft">@dimen/card_padding</item>
+        <item name="android:layout_marginRight">@dimen/card_padding</item>
+        <item name="android:layout_marginBottom">@dimen/section_bottom_margin</item>
+    </style>
+
+    <style name="MetricTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/card_padding</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/card_primary_text</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="CurrentValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/card_primary_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/default_value</item>
+    </style>
+
+    <style name="DeltaValue">
+        <item name="android:layout_width">@dimen/delta_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/card_padding</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/card_secondary_text</item>
+        <item name="android:text">@string/default_value</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="CardButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/card_button</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/card_primary_text</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">@dimen/card_padding</item>
+    </style>
+
+    <style name="CardButtonWithAccent" parent="@style/CardButton" >
+        <item name="android:textColor">@drawable/manage_count_button_text</item>
+    </style>
+
+    <style name="CounterText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/counter_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/card_primary_text</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="CounterUnitsText" parent="@style/CounterText">
+        <item name="android:textSize">@dimen/counter_units_text_size</item>
+    </style>
+
+    <style name="MarginPoint">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+</resources>
