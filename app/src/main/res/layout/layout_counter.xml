@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CardGroupWithButton" >
+    style="@style/CardGroupWithButton">
 
     <TextView
         android:id="@+id/section_counter"
@@ -9,19 +9,31 @@
         style="@style/SectionTitle" />
 
     <!-- Count -->
-    <TextView
-        android:id="@+id/pull_ups_count"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/section_counter"
-        android:text="@string/default_value"
-        android:layout_marginLeft="@dimen/card_padding"
-        android:layout_marginRight="@dimen/card_padding"
-        style="@style/CounterText" />
+    <FrameLayout
+        android:id="@+id/count_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/section_counter">
+
+        <TextView
+            android:id="@+id/pull_ups_count"
+            android:text="@string/default_value"
+            android:layout_gravity="center"
+            style="@style/CounterText" />
+
+        <Button
+            android:id="@+id/prev_value"
+            style="@style/AdjustPrevValue" />
+
+        <Button
+            android:id="@+id/next_value"
+            style="@style/AdjustNextValue" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/pull_ups_count_title"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/pull_ups_count"
+        android:layout_below="@id/count_group"
         android:layout_marginTop="-10dp"
         android:layout_marginBottom="@dimen/card_padding"
         android:layout_marginLeft="@dimen/card_padding"
@@ -32,8 +44,6 @@
     <View
         android:id="@+id/manage_counting_divider"
         android:layout_below="@id/pull_ups_count_title"
-        android:layout_marginLeft="@dimen/card_padding_relaxed"
-        android:layout_marginRight="@dimen/card_padding_relaxed"
         style="@style/Divider" />
 
     <!-- Start/Stop -->

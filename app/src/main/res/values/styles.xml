@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme"
         parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@color/window_background</item>
+        <!--<item name="android:windowContentOverlay">@null</item>-->
         <item name="android:colorBackground">@color/window_background</item>
 
         <item name="android:actionBarStyle">@style/MyActionBar</item>
@@ -21,6 +22,7 @@
 
         <item name="android:actionBarTabBarStyle">@style/MyTabBar</item>
         <item name="actionBarTabBarStyle">@style/MyTabBar</item>
+
     </style>
 
     <!-- ActionBar styles -->
@@ -30,6 +32,9 @@
 
         <item name="android:backgroundStacked">@color/window_background</item>
         <item name="backgroundStacked">@color/window_background</item>
+
+        <item name="android:icon">@drawable/ic_actionbar</item>
+        <item name="icon">@drawable/ic_actionbar</item>
     </style>
 
     <style name="MyActionBarTabs"
@@ -53,8 +58,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
         <item name="android:background">?android:attr/listDivider</item>
+        <item name="android:layout_marginLeft">@dimen/card_padding_relaxed</item>
+        <item name="android:layout_marginRight">@dimen/card_padding_relaxed</item>
     </style>
-
 
     <style name="CardGroupWithButton">
         <item name="android:layout_width">match_parent</item>
@@ -138,6 +144,25 @@
 
     <style name="MarginPoint">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="AdjustValueParent">
+        <item name="android:layout_width">@dimen/adjust_button_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="AdjustPrevValue" parent="@style/AdjustValueParent">
+        <item name="android:layout_gravity">left</item>
+        <item name="android:paddingLeft">@dimen/card_padding</item>
+        <item name="android:drawableLeft">@drawable/prev_value_button</item>
+    </style>
+
+    <style name="AdjustNextValue" parent="@style/AdjustValueParent">
+        <item name="android:layout_gravity">right</item>
+        <item name="android:paddingRight">@dimen/card_padding</item>
+        <item name="android:drawableRight">@drawable/next_value_button</item>
     </style>
 
 </resources>

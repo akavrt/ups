@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Ups</string>
-    <string name="title_activity_main">Pull-ups counter</string>
+    <string name="app_name">Worko</string>
+    <string name="title_activity_main">Workout companion</string>
     <string name="action_settings">Settings</string>
     <string name="training">Training</string>
     <string name="stats">Statistics</string>
@@ -17,10 +17,14 @@
     <string name="total">Pull-ups</string>
     <string name="record">Record</string>
     <string name="start_counting">Start counting</string>
-    <string name="stop_counting">Start counting</string>
+    <string name="stop_counting">Stop counting</string>
     <string name="next_training_date_stub">Unknown</string>
     <string name="counter">Counter</string>
     <string name="pull_ups">pull-ups</string>
     <string name="change_schedule">Change schedule</string>
+    <string name="days">Days</string>
+    <string name="no_phys_activity">No physical activity</string>
+    <string name="notification_title">Pull-ups</string>
+    <string name="notification_default_text">No physical activity.</string>
 
 </resources>

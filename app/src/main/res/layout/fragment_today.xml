@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/today_scroll_group"
         style="@style/MarginPoint"
         android:layout_height="match_parent"
         android:scrollbars="none"

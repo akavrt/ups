@@ -1,20 +1,26 @@
 package com.akavrt.ups;
 
-import java.util.Locale;
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
+import java.util.Locale;
+
+/**
+ * @author Victor Balabanov <akavrt@gmail.com>
+ */
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static final String TAG = MainActivity.class.getName();
     private ViewPager mViewPager;
 
     @Override
@@ -27,12 +33,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     private void setupViews() {
         final ActionBar actionBar = getSupportActionBar();
+
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(adapter);
 
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 
@@ -42,12 +49,26 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             }
         });
 
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getCount(); i++) {
             ActionBar.Tab tab = actionBar.newTab();
-            tab.setText(mSectionsPagerAdapter.getPageTitle(i));
+            tab.setText(adapter.getPageTitle(i));
             tab.setTabListener(this);
 
             actionBar.addTab(tab);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Log.d(TAG, "onNewIntent().");
+
+        mViewPager.setCurrentItem(0);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(makeFragmentName(0));
+        if (fragment != null) {
+            ((OnScrollToTopListener) fragment).onScrollToTop();
         }
     }
 
@@ -83,6 +104,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private final int TABS_COUNT = 2;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -94,8 +116,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
 
         @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
         public int getCount() {
-            return 2;
+            return TABS_COUNT;
         }
 
         @Override
@@ -104,5 +131,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
             return getString(id).toLowerCase(Locale.getDefault());
         }
+    }
+
+    private static String makeFragmentName(int index) {
+        return "android:switcher:" + R.id.pager + ":" + index;
     }
 }

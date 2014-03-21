@@ -1,49 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CardGroupWithButton" >
+    style="@style/CardGroupWithButton">
 
     <TextView
-        android:id="@+id/section_counter"
+        android:id="@id/section_counter"
         android:text="@string/counter"
         android:layout_marginBottom="0dp"
         style="@style/SectionTitle" />
 
     <!-- Count -->
-    <RelativeLayout
-        android:id="@+id/count_group"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@id/count_group"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/section_counter"
         android:layout_marginTop="-4dp"
-        android:layout_marginLeft="@dimen/card_padding"
-        android:layout_marginRight="@dimen/card_padding"
-        android:layout_marginBottom="10dp" >
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/section_counter">
 
-        <TextView
-            android:id="@+id/pull_ups_count"
-            android:text="@string/default_value"
-            style="@style/CounterText" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/pull_ups_count_title"
-            android:layout_alignBaseline="@id/pull_ups_count"
-            android:layout_toRightOf="@id/pull_ups_count"
-            android:text="@string/pull_ups"
-            android:layout_marginLeft="10dp"
-            style="@style/CounterUnitsText" />
-    </RelativeLayout>
+            <TextView
+                android:id="@id/pull_ups_count"
+                android:text="@string/default_value"
+                style="@style/CounterText" />
+
+            <TextView
+                android:id="@id/pull_ups_count_title"
+                android:layout_alignBaseline="@id/pull_ups_count"
+                android:layout_toRightOf="@id/pull_ups_count"
+                android:text="@string/pull_ups"
+                android:layout_marginLeft="10dp"
+                style="@style/CounterUnitsText" />
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@id/prev_value"
+            style="@style/AdjustPrevValue" />
+
+        <Button
+            android:id="@id/next_value"
+            style="@style/AdjustNextValue" />
+    </FrameLayout>
 
     <View
-        android:id="@+id/manage_counting_divider"
+        android:id="@id/manage_counting_divider"
         android:layout_below="@id/count_group"
-        android:layout_marginLeft="@dimen/card_padding_relaxed"
-        android:layout_marginRight="@dimen/card_padding_relaxed"
         style="@style/Divider" />
 
     <!-- Start/Stop -->
     <Button
-        android:id="@+id/manage_counting"
+        android:id="@id/manage_counting"
         android:layout_below="@id/manage_counting_divider"
         android:text="@string/start_counting"
         style="@style/CardButtonWithAccent" />

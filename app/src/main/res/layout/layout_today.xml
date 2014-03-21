@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/today_sets"
         android:layout_below="@id/section_today"
-        android:text="@string/next_training_date_stub"
+        android:text="@string/no_phys_activity"
         style="@style/MetricTitle" />
 
 </RelativeLayout>
