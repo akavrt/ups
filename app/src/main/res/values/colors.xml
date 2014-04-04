@@ -3,7 +3,7 @@
     <color name="accent_1">#4482d0</color>
     <color name="accent_1_relaxed">#699bd9</color>
 
-    <color name="actionbar_background">#dddddd</color>
+    <color name="actionbar_background">@color/accent_1</color>
     <color name="actionbar_bottom_divider">#d2d2d2</color>
     <color name="window_background">#e5e5e5</color>
 

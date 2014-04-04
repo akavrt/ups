@@ -1,5 +1,5 @@
-Ups
-===
+Worko
+=====
 
 Simple accelerometer-based pull-ups counter.
 

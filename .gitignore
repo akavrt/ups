@@ -29,3 +29,6 @@ keystore.properties
 
 # Idea non-crucial project fileS
 *.iws
+
+# locally stored data files
+data/

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_category_title_developer_settings"
+        android:key="pref_key_developer_settings">
+        <CheckBoxPreference
+            android:key="pref_key_log_into_file"
+            android:title="@string/pref_title_log_data"
+            android:summary="@string/pref_summary_log_data"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

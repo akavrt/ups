@@ -2,6 +2,7 @@ package com.akavrt.ups.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -12,15 +13,18 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.akavrt.ups.R;
+import com.akavrt.ups.SettingsActivity;
 import com.akavrt.ups.events.PullUpEvent;
 import com.akavrt.ups.events.PullUpWorkerEvent;
 import com.akavrt.ups.events.PullUpsAdjustEvent;
 import com.akavrt.ups.sensor.CompatSensorHelper;
 import com.akavrt.ups.sensor.SensorHelper;
 import com.akavrt.ups.utils.BusProvider;
+import com.akavrt.ups.utils.Constants;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 
@@ -65,7 +69,7 @@ public class CountingService extends Service {
         startForeground(mNotificator.getId(), mNotificator.build());
 
         mPlayer = preparePlayer();
-        mSensorHelper = new CompatSensorHelper(this, false);
+        mSensorHelper = prepareSensorHelper();
 
         prepareWorkerThread();
 
@@ -89,6 +93,14 @@ public class CountingService extends Service {
         }
 
         return player;
+    }
+
+    private SensorHelper prepareSensorHelper() {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isLoggingEnabled = sharedPrefs.getBoolean(
+                Constants.Settings.IS_LOGGING_ENABLED_KEY, false);
+
+        return new CompatSensorHelper(this, isLoggingEnabled);
     }
 
     @Override

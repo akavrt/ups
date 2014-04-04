@@ -72,9 +72,11 @@ public class RawSensorHelper extends BaseSensorHelper {
                             mInvertedRotationMatrix, 0,
                             mLinearAccelerationValues, 0);
 
-//                    mFiltered = filter(mFiltered, mRemappedAccelerationValues[2]);
+                    mFiltered[0] = filter(mFiltered[0], mRemappedAccelerationValues[2], ALPHA_Z1);
+                    mFiltered[1] = filter(mFiltered[1], mRemappedAccelerationValues[2], ALPHA_Z2);
+                    mFiltered[2] = filter(mFiltered[2], mRemappedAccelerationValues[2], ALPHA_Z3);
 
-                    log(prepareLogMessage(mRemappedAccelerationValues, 0));
+                    log(prepareLogMessage(mRemappedAccelerationValues, mFiltered));
 
                     mDetector.process(mRemappedAccelerationValues[2], event.timestamp / 1000000);
                 }
@@ -91,20 +93,22 @@ public class RawSensorHelper extends BaseSensorHelper {
         }
     }
 
-    /*
-    private static final float ALPHA_Z = 0.78f;
-    private float mFiltered;
+    private static final float ALPHA_Z1 = 0.70f;
+    private static final float ALPHA_Z2 = 0.75f;
+    private static final float ALPHA_Z3 = 0.78f;
+    private float[] mFiltered = new float[3];
 
-    private float filter(float oldValue, float newValue) {
-        return ALPHA_Z * oldValue + (1 - ALPHA_Z) * newValue;
+    private static float filter(float oldValue, float newValue, float alpha) {
+        return alpha * oldValue + (1 - alpha) * newValue;
     }
-    */
 
-    private static String prepareLogMessage(float[] values, float filtered) {
-        return String.format("%s\t%s\t%s\t%s",
+    private static String prepareLogMessage(float[] values, float[] filtered) {
+        return String.format("%s\t%s\t%s\t%s\t%s\t%s",
                 DataLogger.formatFloat(values[0]),
                 DataLogger.formatFloat(values[1]),
                 DataLogger.formatFloat(values[2]),
-                DataLogger.formatFloat(filtered));
+                DataLogger.formatFloat(filtered[0]),
+                DataLogger.formatFloat(filtered[1]),
+                DataLogger.formatFloat(filtered[2]));
     }
 }
