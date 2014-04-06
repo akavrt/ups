@@ -9,26 +9,25 @@
         style="@style/SectionTitle" />
 
     <!-- Count -->
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/count_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/section_counter">
 
-        <TextView
-            android:id="@+id/pull_ups_count"
-            android:text="@string/default_value"
-            android:layout_gravity="center"
-            style="@style/CounterText" />
-
         <Button
             android:id="@+id/prev_value"
             style="@style/AdjustPrevValue" />
 
+        <TextView
+            android:id="@+id/pull_ups_count"
+            android:text="@string/default_value"
+            style="@style/CounterText" />
+
         <Button
             android:id="@+id/next_value"
             style="@style/AdjustNextValue" />
-    </FrameLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/pull_ups_count_title"

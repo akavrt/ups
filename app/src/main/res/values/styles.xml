@@ -9,27 +9,12 @@
 
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
-
-        <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
-        <item name="actionBarTabStyle">@style/MyActionBarTabs</item>
-
-        <item name="android:actionBarTabTextStyle">@style/MyTabText</item>
-        <item name="actionBarTabTextStyle">@style/MyTabText</item>
-
-        <item name="android:actionBarDivider">@android:color/darker_gray</item>
-        <item name="actionBarDivider">@android:color/darker_gray</item>
-
-        <item name="android:actionBarTabBarStyle">@style/MyTabBar</item>
-        <item name="actionBarTabBarStyle">@style/MyTabBar</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="android:background">@color/actionbar_background</item>
         <item name="background">@color/actionbar_background</item>
-
-        <!--<item name="android:backgroundStacked">@color/window_background</item>-->
-        <!--<item name="backgroundStacked">@color/window_background</item>-->
 
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>
@@ -41,21 +26,6 @@
     <style name="MyActionBarTitleText"
            parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="MyActionBarTabs" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
-        <item name="android:background">@drawable/actionbar_tab_indicator</item>
-        <item name="background">@drawable/actionbar_tab_indicator</item>
-    </style>
-
-    <style name="MyTabBar"
-        parent="@style/Widget.AppCompat.Light.ActionBar.TabBar">
-        <item name="android:divider">?android:attr/dividerVertical</item>
-    </style>
-
-    <style name="MyTabText"
-        parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
-        <item name="android:textColor">@color/action_bar_tabs_text</item>
     </style>
 
     <style name="Divider">
@@ -151,8 +121,9 @@
     </style>
 
     <style name="AdjustValueParent">
-        <item name="android:layout_width">@dimen/adjust_button_width</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:background">@null</item>
         <item name="android:visibility">invisible</item>
     </style>
@@ -160,12 +131,14 @@
     <style name="AdjustPrevValue" parent="@style/AdjustValueParent">
         <item name="android:layout_gravity">left</item>
         <item name="android:paddingLeft">@dimen/card_padding</item>
+        <!--<item name="android:paddingRight">@dimen/adjust_button_width</item>-->
         <item name="android:drawableLeft">@drawable/prev_value_button</item>
     </style>
 
     <style name="AdjustNextValue" parent="@style/AdjustValueParent">
         <item name="android:layout_gravity">right</item>
         <item name="android:paddingRight">@dimen/card_padding</item>
+        <!--<item name="android:paddingLeft">@dimen/adjust_button_width</item>-->
         <item name="android:drawableRight">@drawable/next_value_button</item>
     </style>
 
