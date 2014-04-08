@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <com.akavrt.worko.ui.CompStatGroup
+                android:id="@+id/week_stat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:titleText="@string/section_week"
@@ -26,6 +27,7 @@
                 style="@style/CardGroup"/>
 
             <com.akavrt.worko.ui.CompStatGroup
+                android:id="@+id/month_stat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:titleText="@string/section_month"

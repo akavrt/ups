@@ -79,8 +79,9 @@
     </style>
 
     <style name="DeltaValue">
-        <item name="android:layout_width">@dimen/delta_width</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/delta_width</item>
         <item name="android:layout_marginRight">@dimen/card_padding</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
@@ -99,8 +100,37 @@
         <item name="android:padding">@dimen/card_padding</item>
     </style>
 
-    <style name="CardButtonWithAccent" parent="@style/CardButton" >
+    <style name="CardButtonWithAccent" parent="@style/CardButton">
         <item name="android:textColor">@drawable/manage_count_button_text</item>
+    </style>
+
+    <style name="CardDialogButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@drawable/dialog_button_text</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="CardDialogText"/>
+
+    <style name="CardDialogTitle" parent="@style/CardDialogText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/card_primary_text</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="CardDialogMessage" parent="@style/CardDialogTitle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/card_secondary_text</item>
     </style>
 
     <style name="CounterText">

@@ -1,10 +1,14 @@
 package com.akavrt.worko.service;
 
 import android.app.Service;
+import android.content.AsyncQueryHandler;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -20,12 +24,15 @@ import com.akavrt.worko.R;
 import com.akavrt.worko.events.PullUpEvent;
 import com.akavrt.worko.events.PullUpWorkerEvent;
 import com.akavrt.worko.events.PullUpsAdjustEvent;
+import com.akavrt.worko.provider.WorkoContract;
 import com.akavrt.worko.sensor.CompatSensorHelper;
 import com.akavrt.worko.sensor.SensorHelper;
 import com.akavrt.worko.utils.BusProvider;
 import com.akavrt.worko.utils.Constants;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
+
+import java.util.Calendar;
 
 /**
  * @author Victor Balabanov <akavrt@gmail.com>
@@ -116,6 +123,10 @@ public class CountingService extends Service {
     public void onDestroy() {
         Log.d(TAG, "onDestroy(), thread = " + checkThread());
 
+        if (mPullUpsCounter > 0) {
+            storeCount();
+        }
+
         BusProvider.getWorkerInstance().unregister(this);
         BusProvider.getInstance().unregister(this);
 
@@ -132,6 +143,29 @@ public class CountingService extends Service {
         stopForeground(true);
 
         isRunning = false;
+    }
+
+    private void storeCount() {
+        final int insertToken = 1;
+        AsyncQueryHandler handler = new AsyncQueryHandler(getContentResolver()) {
+            @Override
+            protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                long id = ContentUris.parseId(uri);
+                Log.d(TAG, "onInsertComplete(), newly added record has id = " + id);
+            }
+        };
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        ContentValues values = new ContentValues();
+        values.put(WorkoContract.Sets.PULL_UPS, mPullUpsCounter);
+        values.put(WorkoContract.Sets.DAY, calendar.getTimeInMillis() / 1000);
+
+        handler.startInsert(insertToken, null, WorkoContract.Sets.CONTENT_URI, values);
     }
 
     @Override

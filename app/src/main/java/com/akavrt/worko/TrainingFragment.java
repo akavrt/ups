@@ -26,10 +26,10 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
     private static final String TAG = TrainingFragment.class.getName();
 
     private ServiceManager mManager;
-    @InjectView(R.id.pull_ups_count) TextView countText;
-    @InjectView(R.id.manage_counting) Button startStopButton;
-    @InjectView(R.id.prev_value) Button prevValueButton;
-    @InjectView(R.id.next_value) Button nextValueButton;
+    @InjectView(R.id.pull_ups_count) TextView mCountText;
+    @InjectView(R.id.manage_counting) Button mStartStopButton;
+    @InjectView(R.id.prev_value) Button mPrevValueButton;
+    @InjectView(R.id.next_value) Button mNextValueButton;
     @InjectView(R.id.today_scroll_group) ScrollView mContainer;
 
     @Override
@@ -52,10 +52,10 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
         Log.d(TAG, "onActivityCreated(), mManager.isCounting() = " + mManager.isCounting());
 
         if (mManager.isCounting()) {
-            startStopButton.setText(R.string.stop_counting);
+            mStartStopButton.setText(R.string.stop_counting);
 
-            prevValueButton.setVisibility(View.VISIBLE);
-            nextValueButton.setVisibility(View.VISIBLE);
+            mPrevValueButton.setVisibility(View.VISIBLE);
+            mNextValueButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -81,21 +81,21 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
     private void setupViews(View rootView) {
         ButterKnife.inject(this, rootView);
 
-        startStopButton.setOnClickListener(new View.OnClickListener() {
+        mStartStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 manageCounting();
             }
         });
 
-        prevValueButton.setOnClickListener(new View.OnClickListener() {
+        mPrevValueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 decValue();
             }
         });
 
-        nextValueButton.setOnClickListener(new View.OnClickListener() {
+        mNextValueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 incValue();
@@ -119,19 +119,19 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
     private void startCounting() {
         mManager.startCounting();
 
-        startStopButton.setText(R.string.stop_counting);
+        mStartStopButton.setText(R.string.stop_counting);
 
-        prevValueButton.setVisibility(View.VISIBLE);
-        nextValueButton.setVisibility(View.VISIBLE);
+        mPrevValueButton.setVisibility(View.VISIBLE);
+        mNextValueButton.setVisibility(View.VISIBLE);
     }
 
     private void stopCounting() {
         mManager.stopCounting();
 
-        startStopButton.setText(R.string.start_counting);
+        mStartStopButton.setText(R.string.start_counting);
 
-        prevValueButton.setVisibility(View.INVISIBLE);
-        nextValueButton.setVisibility(View.INVISIBLE);
+        mPrevValueButton.setVisibility(View.INVISIBLE);
+        mNextValueButton.setVisibility(View.INVISIBLE);
 
         setValue(0);
     }
@@ -145,6 +145,6 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
     }
 
     private void setValue(int value) {
-        countText.setText(Integer.toString(value));
+        mCountText.setText(Integer.toString(value));
     }
 }

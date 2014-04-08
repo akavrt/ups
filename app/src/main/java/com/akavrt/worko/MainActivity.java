@@ -20,11 +20,18 @@ import android.widget.ListView;
 
 import com.akavrt.worko.service.Notificator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Victor Balabanov <akavrt@gmail.com>
  */
 public class MainActivity extends ActionBarActivity {
     private static final String CURRENT_ITEM = "current_item";
+    private interface FragmentTags {
+        String TRAINING = "training";
+        String STATISTICS = "statistics";
+    }
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private String[] mFragmentTitles;
@@ -32,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private int mCurrentItem = -1;
+    private List<OnBackPressedListener> mBackListeners;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,8 @@ public class MainActivity extends ActionBarActivity {
 
         mTitle = getTitle();
         mDrawerTitle = getString(R.string.app_name);
+
+        mBackListeners = new ArrayList<OnBackPressedListener>();
 
         setupViews();
 
@@ -158,14 +168,21 @@ public class MainActivity extends ActionBarActivity {
     private void selectItem(int position) {
         if (position != mCurrentItem) {
             mCurrentItem = position;
-            Fragment fragment = position == 0
-                    ? new TrainingFragment()
-                    : new StatsFragment();
+
+            Fragment fragment;
+            String tag;
+            if (position == 0) {
+                fragment = new TrainingFragment();
+                tag = FragmentTags.TRAINING;
+            } else {
+                fragment = new StatsFragment();
+                tag = FragmentTags.STATISTICS;
+            }
 
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
+                    .replace(R.id.content_frame, fragment, tag)
                     .commit();
 
             // Highlight the selected item, update the title, and close the drawer
@@ -180,5 +197,24 @@ public class MainActivity extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void onBackPressed() {
+        for (OnBackPressedListener listener : mBackListeners) {
+            if (listener.onBackPressed()) {
+                return;
+            }
+        }
+
+        super.onBackPressed();
+    }
+
+    public void registerBackListener(OnBackPressedListener listener) {
+        mBackListeners.add(listener);
+    }
+
+    public void unregisterBackListener(OnBackPressedListener listener) {
+        mBackListeners.remove(listener);
     }
 }

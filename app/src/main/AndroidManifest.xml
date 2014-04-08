@@ -36,5 +36,10 @@
         </activity>
 
         <service android:name="com.akavrt.worko.service.CountingService"/>
+
+        <provider
+            android:name="com.akavrt.worko.provider.WorkoProvider"
+            android:authorities="com.akavrt.worko.provider" />
+
     </application>
 </manifest>

@@ -2,14 +2,17 @@ package com.akavrt.worko.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -37,11 +40,12 @@ public class AllTimeStatGroup extends FrameLayout {
     @InjectView(R.id.all_time_sets) TextView mSetsText;
     @InjectView(R.id.all_time_total) TextView mPullUpsText;
     @InjectView(R.id.all_time_record) TextView mRecordText;
-    @InjectView(R.id.card_dialog) ViewGroup mCardDialog;
-    @InjectView(R.id.clear_stats_positive) Button mDialogPositiveButton;
-    @InjectView(R.id.clear_stats_negative) Button mDialogNegativeButton;
+    private View mCardDialog;
+    private Button mDialogPositiveButton;
+    private Button mDialogNegativeButton;
     private int mShortAnimationDuration;
     private boolean mIsInDialogMode;
+    private boolean mIsDialogInflated;
     private Drawable mStaticDotsDrawable;
     private Drawable mDynamicDotsDrawable;
 
@@ -80,16 +84,36 @@ public class AllTimeStatGroup extends FrameLayout {
             @Override
             public void onClick(View view) {
                 if (mIsInDialogMode) {
-                    crossfade(mCardContent, mCardDialog);
-                    mResetToggleButton.setImageDrawable(mDynamicDotsDrawable);
+                    showContent();
                 } else {
-                    crossfade(mCardDialog, mCardContent);
-                    mResetToggleButton.setImageDrawable(mStaticDotsDrawable);
+                    showDialog();
                 }
 
                 mIsInDialogMode = !mIsInDialogMode;
             }
         });
+    }
+
+    private void showContent() {
+        crossfade(mCardContent, mCardDialog);
+        mResetToggleButton.setImageDrawable(mDynamicDotsDrawable);
+    }
+
+    private void showDialog() {
+        if (!mIsDialogInflated) {
+            setupDialog();
+        }
+
+        crossfade(mCardDialog, mCardContent);
+        mResetToggleButton.setImageDrawable(mStaticDotsDrawable);
+    }
+
+    private void setupDialog() {
+        mIsDialogInflated = true;
+
+        mCardDialog = ((ViewStub) findViewById(R.id.stub_card_dialog)).inflate();
+        mDialogPositiveButton = (Button) mCardDialog.findViewById(R.id.clear_stats_positive);
+        mDialogNegativeButton = (Button) mCardDialog.findViewById(R.id.clear_stats_negative);
 
         mDialogPositiveButton.setOnClickListener(new OnClickListener() {
 
@@ -119,6 +143,20 @@ public class AllTimeStatGroup extends FrameLayout {
     }
 
     private void crossfade(final View viewToAppear, final View viewToFade) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR1) {
+            crossfadePreHoneycomb(viewToAppear, viewToFade);
+        } else {
+            crossfadeHoneycomb(viewToAppear, viewToFade);
+        }
+    }
+
+    private void crossfadePreHoneycomb(final View viewToAppear, final View viewToFade) {
+        viewToFade.setVisibility(View.INVISIBLE);
+        viewToAppear.setVisibility(View.VISIBLE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+    private void crossfadeHoneycomb(final View viewToAppear, final View viewToFade) {
         viewToAppear.setAlpha(0f);
         viewToAppear.setVisibility(View.VISIBLE);
 
@@ -159,8 +197,33 @@ public class AllTimeStatGroup extends FrameLayout {
         }
 
         if (mIsInDialogMode) {
-            crossfade(mCardDialog, mCardContent);
-            mResetToggleButton.setImageDrawable(mStaticDotsDrawable);
+            showDialog();
         }
+    }
+
+    public boolean onBackPressed() {
+        boolean needToHandle = mIsInDialogMode;
+        if (needToHandle) {
+            showContent();
+            mIsInDialogMode = !mIsInDialogMode;
+        }
+
+        return needToHandle;
+    }
+
+    public void setDays(int value) {
+        mDaysText.setText(Integer.toString(value));
+    }
+
+    public void setSets(int value) {
+        mSetsText.setText(Integer.toString(value));
+    }
+
+    public void setPullUps(int value) {
+        mPullUpsText.setText(Integer.toString(value));
+    }
+
+    public void setRecord(int value) {
+        mRecordText.setText(Integer.toString(value));
     }
 }

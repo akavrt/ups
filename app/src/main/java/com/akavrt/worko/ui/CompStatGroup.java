@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.akavrt.worko.R;
 
-import java.util.Map;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -72,27 +70,33 @@ public class CompStatGroup extends RelativeLayout {
         mTitleText.setText(resId);
     }
 
-    public void setStatistics(Map<String, Integer> values) {
-        mSetsText.setText(getFormattedValue(values, CompStatKeys.SETS, 0));
-        mSetsDeltaText.setText(getFormattedValue(values, CompStatKeys.SETS_DELTA, 0));
-        mPullUpsText.setText(getFormattedValue(values, CompStatKeys.PULL_UPS, 0));
-        mPullUpsDeltaText.setText(getFormattedValue(values, CompStatKeys.PULL_UPS_DELTA, 0));
-        mRecordText.setText(getFormattedValue(values, CompStatKeys.RECORD, 0));
-        mRecordDeltaText.setText(getFormattedValue(values, CompStatKeys.RECORD_DELTA, 0));
+    public void setSets(int value) {
+        mSetsText.setText(Integer.toString(value));
     }
 
-    private String getFormattedValue(Map<String, Integer> values, String key, int defValue) {
-        int value = values.containsKey(key) ? values.get(key) : defValue;
-
-        return String.format("%+d", value);
+    public void setSetsDelta(int value) {
+        mSetsDeltaText.setText(formatValue(value));
     }
 
-    public interface CompStatKeys {
-        String SETS = "sets";
-        String SETS_DELTA = "sets_delta";
-        String PULL_UPS = "pull_ups";
-        String PULL_UPS_DELTA = "pull_ups_delta";
-        String RECORD = "record";
-        String RECORD_DELTA = "record_delta";
+    public void setPullUps(int value) {
+        mPullUpsText.setText(Integer.toString(value));
+    }
+
+    public void setPullUpsDelta(int value) {
+        mPullUpsDeltaText.setText(formatValue(value));
+    }
+
+    public void setRecord(int value) {
+        mRecordText.setText(Integer.toString(value));
+    }
+
+    public void setRecordDelta(int value) {
+        mRecordDeltaText.setText(formatValue(value));
+    }
+    
+    private static String formatValue(int value) {
+        return value != 0
+                ? String.format("%+d", value)
+                : Integer.toString(value);
     }
 }

@@ -19,4 +19,8 @@
         <item name="icon">@drawable/ic_actionbar</item>
     </style>
 
+    <style name="CardDialogText">
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>

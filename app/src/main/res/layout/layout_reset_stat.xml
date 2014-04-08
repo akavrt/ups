@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:visibility="gone" >
+
+    <TextView
+        android:id="@+id/clear_stats_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/clear_stat_dialog_title"
+        style="@style/CardDialogTitle" />
+
+    <TextView
+        android:id="@+id/clear_stats_message"
+        android:layout_below="@id/clear_stats_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:text="@string/clear_stat_dialog_message"
+        style="@style/CardDialogMessage" />
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clear_stats_message"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/clear_stats_positive"
+            android:layout_marginRight="4dp"
+            android:text="@string/clear_stat_positive"
+            style="@style/CardDialogButton" />
+
+        <Button
+            android:id="@+id/clear_stats_negative"
+            android:text="@string/clear_stat_negative"
+            style="@style/CardDialogButton" />
+
+    </LinearLayout>
+
+</RelativeLayout>
