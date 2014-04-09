@@ -1,65 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:stretchColumns="0">
 
-    <TextView
-        android:id="@+id/section_title"
-        style="@style/SectionTitle"/>
+    <TableRow
+        android:layout_marginBottom="0dp">
 
-    <!-- Sets -->
-    <TextView
-        android:id="@+id/sets_delta"
-        android:layout_below="@id/section_title"
-        style="@style/DeltaValue"/>
+        <TextView
+            android:id="@+id/section_title"
+            android:layout_marginBottom="0dp"
+            style="@style/SectionTitle"/>
+    </TableRow>
 
-    <TextView
-        android:id="@+id/sets"
-        android:layout_toLeftOf="@id/sets_delta"
-        android:layout_below="@id/section_title"
-        style="@style/CurrentValue"/>
+    <TableRow
+        android:layout_marginBottom="2dp">
 
-    <TextView
-        android:id="@+id/sets_title"
-        android:text="@string/trainings"
-        android:layout_toLeftOf="@id/sets"
-        android:layout_below="@id/section_title"
-        style="@style/MetricTitle"/>
+        <TextView
+            android:layout_column="1"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_small"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="normal"
+            android:textAllCaps="true"
+            android:text="@string/current"
+            android:visibility="visible"
+            style="@style/CurrentValue"/>
 
-    <!-- Overall pull-ups -->
-    <TextView
-        android:id="@+id/total_delta"
-        android:layout_below="@id/sets_delta"
-        style="@style/DeltaValue"/>
+        <TextView
+            android:layout_column="2"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_small"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="normal"
+            android:textAllCaps="true"
+            android:text="@string/previous"
+            android:visibility="visible"
+            style="@style/CurrentValue"/>
+    </TableRow>
 
-    <TextView
-        android:id="@+id/total"
-        android:layout_toLeftOf="@id/total_delta"
-        android:layout_below="@id/sets_delta"
-        style="@style/CurrentValue"/>
+    <TableRow>
 
-    <TextView
-        android:id="@+id/total_title"
-        android:text="@string/total"
-        android:layout_toLeftOf="@id/total"
-        android:layout_below="@id/sets_delta"
-        style="@style/MetricTitle"/>
+        <TextView
+            android:id="@+id/total_title"
+            android:text="@string/total"
+            style="@style/MetricTitle"/>
 
-    <!-- Record -->
-    <TextView
-        android:id="@+id/record_delta"
-        android:layout_below="@id/total_delta"
-        style="@style/DeltaValue"/>
+        <TextView
+            android:id="@+id/total"
+            style="@style/CurrentValue"/>
 
-    <TextView
-        android:id="@+id/record"
-        android:layout_toLeftOf="@id/record_delta"
-        android:layout_below="@id/total_delta"
-        style="@style/CurrentValue"/>
+        <TextView
+            android:id="@+id/total_delta"
+            style="@style/DeltaValue"/>
+    </TableRow>
 
-    <TextView
-        android:id="@+id/record_title"
-        android:text="@string/record"
-        android:layout_toLeftOf="@id/record"
-        android:layout_below="@id/total_delta"
-        style="@style/MetricTitle"/>
+    <TableRow>
+
+        <TextView
+            android:id="@+id/sets_title"
+            android:text="@string/trainings"
+            style="@style/MetricTitle"/>
+
+        <TextView
+            android:id="@+id/sets"
+            style="@style/CurrentValue"/>
+
+        <TextView
+            android:id="@+id/sets_delta"
+            style="@style/DeltaValue"/>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/record_title"
+            android:text="@string/record"
+            style="@style/MetricTitle"/>
+
+        <TextView
+            android:id="@+id/record"
+            style="@style/CurrentValue"/>
+
+        <TextView
+            android:id="@+id/record_delta"
+            style="@style/DeltaValue"/>
+    </TableRow>
 
 </merge>

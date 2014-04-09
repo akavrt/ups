@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
     private CharSequence mTitle;
     private int mCurrentItem = -1;
     private List<OnBackPressedListener> mBackListeners;
+    private boolean mIsReplaceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +104,26 @@ public class MainActivity extends ActionBarActivity {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mTitle);
                 ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+
+                if (mIsReplaceFragment) {
+                    mIsReplaceFragment = false;
+
+                    Fragment fragment;
+                    String tag;
+                    if (mCurrentItem == 0) {
+                        fragment = new TrainingFragment();
+                        tag = FragmentTags.TRAINING;
+                    } else {
+                        fragment = new StatsFragment();
+                        tag = FragmentTags.STATISTICS;
+                    }
+
+                    // Insert the fragment by replacing any existing fragment
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_frame, fragment, tag)
+                            .commit();
+                }
             }
 
             /** Called when a drawer has settled in a completely open state. */
@@ -161,7 +182,25 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
+            if (position != mCurrentItem) {
+                int prevItem = mCurrentItem;
+
+                mCurrentItem = position;
+                mIsReplaceFragment = true;
+
+                // Highlight the selected item, update the title, and close the drawer
+                mDrawerList.setItemChecked(mCurrentItem, true);
+                setTitle(mFragmentTitles[mCurrentItem]);
+
+                String tag = prevItem == 0
+                        ? FragmentTags.TRAINING
+                        : FragmentTags.STATISTICS;
+
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                ((OnScrollToTopListener) fragment).hideContent();
+            }
+
+            mDrawerLayout.closeDrawer(mDrawerList);
         }
     }
 

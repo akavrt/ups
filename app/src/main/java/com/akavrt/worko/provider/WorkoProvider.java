@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -105,6 +106,13 @@ public class WorkoProvider extends ContentProvider {
 
         Cursor result;
         switch (match) {
+            case SETS:
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(Tables.SETS);
+                result = builder.query(
+                        db, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+
             case STAT:
                 String sql = STAT_SQL_UNBOUNDED + " ORDER BY " + BaseColumns._ID + " ASC";
                 result = db.rawQuery(sql, null);

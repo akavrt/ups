@@ -16,7 +16,6 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.akavrt.worko.events.ResetStatisticsEvent;
-import com.akavrt.worko.provider.WorkoContract;
 import com.akavrt.worko.ui.AllTimeStatGroup;
 import com.akavrt.worko.ui.CompStatGroup;
 import com.akavrt.worko.utils.BusProvider;
@@ -25,8 +24,8 @@ import com.squareup.otto.Subscribe;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import static com.akavrt.worko.provider.WorkoContract.*;
 import static com.akavrt.worko.provider.WorkoContract.AllTimeStat;
+import static com.akavrt.worko.provider.WorkoContract.MonthStat;
 import static com.akavrt.worko.provider.WorkoContract.Sets;
 import static com.akavrt.worko.provider.WorkoContract.StatisticsColumns;
 import static com.akavrt.worko.provider.WorkoContract.WeekStat;
@@ -47,14 +46,10 @@ public class StatsFragment extends Fragment implements OnScrollToTopListener,
             StatisticsColumns.RECORD
     };
     // views
-    @InjectView(R.id.stats_scroll_group)
-    ScrollView mContainer;
-    @InjectView(R.id.week_stat)
-    CompStatGroup mWeekStatGroup;
-    @InjectView(R.id.month_stat)
-    CompStatGroup mMonthStatGroup;
-    @InjectView(R.id.all_time_stat)
-    AllTimeStatGroup mAllTimeStatGroup;
+    @InjectView(R.id.stats_scroll_group) ScrollView mContainer;
+    @InjectView(R.id.week_stat) CompStatGroup mWeekStatGroup;
+    @InjectView(R.id.month_stat) CompStatGroup mMonthStatGroup;
+    @InjectView(R.id.all_time_stat) AllTimeStatGroup mAllTimeStatGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,6 +93,11 @@ public class StatsFragment extends Fragment implements OnScrollToTopListener,
     }
 
     @Override
+    public void hideContent() {
+        mContainer.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -119,7 +119,7 @@ public class StatsFragment extends Fragment implements OnScrollToTopListener,
     }
 
     @Subscribe
-    public void onShowClearStatDialog(ResetStatisticsEvent event) {
+    public void onStatisticsReset(ResetStatisticsEvent event) {
         clearStat();
     }
 
@@ -147,14 +147,17 @@ public class StatsFragment extends Fragment implements OnScrollToTopListener,
         switch (loaderId) {
             case WEEK_STAT_LOADER_ID:
                 uri = WeekStat.CONTENT_URI;
+                mWeekStatGroup.hideValues();
                 break;
 
             case MONTH_STAT_LOADER_ID:
                 uri = MonthStat.CONTENT_URI;
+                mMonthStatGroup.hideValues();
                 break;
 
             case ALL_TIME_STAT_LOADER_ID:
                 uri = AllTimeStat.CONTENT_URI;
+                mAllTimeStatGroup.hideValues();
                 break;
         }
 
@@ -199,6 +202,7 @@ public class StatsFragment extends Fragment implements OnScrollToTopListener,
                 mAllTimeStatGroup.setSets(sets);
                 mAllTimeStatGroup.setPullUps(pullUps);
                 mAllTimeStatGroup.setRecord(record);
+                mAllTimeStatGroup.showValues();
 
                 break;
         }
@@ -230,11 +234,13 @@ public class StatsFragment extends Fragment implements OnScrollToTopListener,
         }
 
         group.setSets(currSets);
-        group.setSetsDelta(currSets - prevSets);
+        group.setSetsDelta(prevSets);
         group.setPullUps(currPullUps);
-        group.setPullUpsDelta(currPullUps - prevPullUps);
+        group.setPullUpsDelta(prevPullUps);
         group.setRecord(currRecord);
-        group.setRecordDelta(currRecord - prevRecord);
+        group.setRecordDelta(prevRecord);
+
+        group.showValues();
     }
 
     @Override

@@ -46,7 +46,11 @@ public class IntervalStatHelper {
         nextWeekStartDate.setTime(currWeekStartDate.getTime());
         nextWeekStartDate.add(Calendar.DATE, 7);
 
-        return adjacentIntervalsStat(prevWeekStartDate, currWeekStartDate, nextWeekStartDate);
+        return adjacentIntervalsStat(
+                currentLocale,
+                prevWeekStartDate,
+                currWeekStartDate,
+                nextWeekStartDate);
     }
 
     public Cursor monthStat() {
@@ -68,10 +72,15 @@ public class IntervalStatHelper {
         nextMonthStartDate.setTime(currMonthStartDate.getTime());
         nextMonthStartDate.add(Calendar.MONTH, 1);
 
-        return adjacentIntervalsStat(prevMonthStartDate, currMonthStartDate, nextMonthStartDate);
+        return adjacentIntervalsStat(
+                currentLocale,
+                prevMonthStartDate,
+                currMonthStartDate,
+                nextMonthStartDate);
     }
 
-    private Cursor adjacentIntervalsStat(Calendar prevIntervalStartDate,
+    private Cursor adjacentIntervalsStat(Locale locale,
+                                         Calendar prevIntervalStartDate,
                                          Calendar currIntervalStartDate,
                                          Calendar nextIntervalStartDate) {
         String prevIntervalStartDateSt =
@@ -86,21 +95,40 @@ public class IntervalStatHelper {
                         WorkoContract.WeekStat.DAYS,
                         WorkoContract.WeekStat.SETS,
                         WorkoContract.WeekStat.PULL_UPS,
-                        WorkoContract.WeekStat.RECORD}
+                        WorkoContract.WeekStat.RECORD,
+                        WorkoContract.WeekStat.INTERVAL_START,
+                        WorkoContract.WeekStat.INTERVAL_END
+                }
         );
 
 
         // current interval
-        addIntervalStat(currIntervalStartDateSt, nextIntervalStartDateSt, result);
+        MatrixCursor.RowBuilder builder =
+                addIntervalStat(currIntervalStartDateSt, nextIntervalStartDateSt, result);
+
+        Calendar currIntervalEndDate = Calendar.getInstance(locale);
+        currIntervalEndDate.setTime(nextIntervalStartDate.getTime());
+        currIntervalEndDate.add(Calendar.DATE, -1);
+
+        builder.add(currIntervalStartDate.getTimeInMillis());
+        builder.add(currIntervalEndDate.getTimeInMillis());
+
         // previous interval
-        addIntervalStat(prevIntervalStartDateSt, currIntervalStartDateSt, result);
+        builder = addIntervalStat(prevIntervalStartDateSt, currIntervalStartDateSt, result);
+
+        Calendar prevIntervalEndDate = Calendar.getInstance(locale);
+        prevIntervalEndDate.setTime(currIntervalStartDate.getTime());
+        prevIntervalEndDate.add(Calendar.DATE, -1);
+
+        builder.add(prevIntervalStartDate.getTimeInMillis());
+        builder.add(prevIntervalEndDate.getTimeInMillis());
 
         return result;
     }
 
-    private void addIntervalStat(String currIntervalStartDateSt,
-                                 String nextIntervalStartDateSt,
-                                 MatrixCursor result) {
+    private MatrixCursor.RowBuilder addIntervalStat(String currIntervalStartDateSt,
+                                                    String nextIntervalStartDateSt,
+                                                    MatrixCursor result) {
         Cursor interval = mDb.rawQuery(sStatSqlBounded,
                 new String[]{currIntervalStartDateSt, nextIntervalStartDateSt});
 
@@ -124,7 +152,7 @@ public class IntervalStatHelper {
             interval.close();
         }
 
-        result.newRow()
+        return result.newRow()
                 .add(intervalDays)
                 .add(intervalSets)
                 .add(intervalPullUps)

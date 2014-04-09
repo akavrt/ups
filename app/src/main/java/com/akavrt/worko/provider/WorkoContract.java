@@ -26,6 +26,8 @@ public final class WorkoContract {
         String SETS = "total_sets";
         String PULL_UPS = "total_pull_ups";
         String RECORD = "max_record";
+        String INTERVAL_START = "interval_start";
+        String INTERVAL_END = "interval_end";
     }
 
     public static final class Sets implements BaseColumns, SetsColumns {

@@ -22,6 +22,7 @@
                 android:id="@+id/week_stat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:stretchColumns="0"
                 app:titleText="@string/section_week"
                 android:layout_marginTop="@dimen/container_padding"
                 style="@style/CardGroup"/>
@@ -30,6 +31,7 @@
                 android:id="@+id/month_stat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:stretchColumns="0"
                 app:titleText="@string/section_month"
                 android:layout_marginTop="@dimen/container_padding"
                 style="@style/CardGroup" />
@@ -40,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/container_padding"
                 android:layout_marginBottom="@dimen/container_padding"
+                android:paddingTop="0dp"
                 style="@style/CardGroup" />
 
         </LinearLayout>

@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.RelativeLayout;
+import android.view.View;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.akavrt.worko.R;
@@ -15,7 +16,7 @@ import butterknife.InjectView;
 /**
  * @author Victor Balabanov <akavrt@gmail.com>
  */
-public class CompStatGroup extends RelativeLayout {
+public class CompStatGroup extends TableLayout {
     @InjectView(R.id.section_title) TextView mTitleText;
     @InjectView(R.id.sets) TextView mSetsText;
     @InjectView(R.id.sets_delta) TextView mSetsDeltaText;
@@ -31,11 +32,6 @@ public class CompStatGroup extends RelativeLayout {
 
     public CompStatGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
-    }
-
-    public CompStatGroup(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
         init(attrs);
     }
 
@@ -93,10 +89,27 @@ public class CompStatGroup extends RelativeLayout {
     public void setRecordDelta(int value) {
         mRecordDeltaText.setText(formatValue(value));
     }
-    
+
     private static String formatValue(int value) {
-        return value != 0
-                ? String.format("%+d", value)
-                : Integer.toString(value);
+        return value < 10000
+                ? Integer.toString(value)
+                : String.format("%.1fk", value / (double) 1000);
+    }
+
+    public void showValues() {
+        setValuesVisibility(View.VISIBLE);
+    }
+
+    public void hideValues() {
+        setValuesVisibility(View.INVISIBLE);
+    }
+
+    private void setValuesVisibility(int visibility) {
+        mSetsText.setVisibility(visibility);
+        mSetsDeltaText.setVisibility(visibility);
+        mPullUpsText.setVisibility(visibility);
+        mPullUpsDeltaText.setVisibility(visibility);
+        mRecordText.setVisibility(visibility);
+        mRecordDeltaText.setVisibility(visibility);
     }
 }

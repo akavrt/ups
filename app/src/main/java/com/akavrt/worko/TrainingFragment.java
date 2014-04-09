@@ -1,7 +1,11 @@
 package com.akavrt.worko;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +20,32 @@ import com.akavrt.worko.service.CountingService;
 import com.akavrt.worko.utils.BusProvider;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import static com.akavrt.worko.provider.WorkoContract.Sets;
 
 /**
  * @author Victor Balabanov <akavrt@gmail.com>
  */
-public class TrainingFragment extends Fragment implements OnScrollToTopListener {
+public class TrainingFragment extends Fragment implements OnScrollToTopListener,
+        LoaderManager.LoaderCallbacks<Cursor>{
     private static final String TAG = TrainingFragment.class.getName();
+    private static final String[] sProjection = {
+            Sets.PULL_UPS
+    };
 
     private ServiceManager mManager;
     @InjectView(R.id.pull_ups_count) TextView mCountText;
     @InjectView(R.id.manage_counting) Button mStartStopButton;
     @InjectView(R.id.prev_value) Button mPrevValueButton;
     @InjectView(R.id.next_value) Button mNextValueButton;
+    @InjectView(R.id.today_sets) TextView mTodaySetsText;
     @InjectView(R.id.today_scroll_group) ScrollView mContainer;
 
     @Override
@@ -63,6 +79,8 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
     public void onResume() {
         super.onResume();
         BusProvider.getInstance().register(this);
+
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -101,6 +119,11 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
                 incValue();
             }
         });
+    }
+
+    @Override
+    public void hideContent() {
+        mContainer.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -146,5 +169,47 @@ public class TrainingFragment extends Fragment implements OnScrollToTopListener 
 
     private void setValue(int value) {
         mCountText.setText(Integer.toString(value));
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
+        String todaySt = Long.toString(CountingService.getTodayInMillis(getActivity()) / 1000);
+        mTodaySetsText.setVisibility(View.INVISIBLE);
+
+        return new CursorLoader(
+                getActivity(),
+                Sets.CONTENT_URI,
+                sProjection,
+                Sets.DAY + " = ?",
+                new String[] {todaySt},
+                Sets._ID + " ASC");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+            int pullUpsIndex = cursor.getColumnIndexOrThrow(Sets.PULL_UPS);
+
+            StringBuilder sb = new StringBuilder();
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                int pullUps = cursor.getInt(pullUpsIndex);
+                sb.append(pullUps);
+
+                if (!cursor.isLast()) {
+                    sb.append(" \u2014 ");
+                }
+            }
+
+            mTodaySetsText.setText(sb.toString());
+        } else {
+            mTodaySetsText.setText(R.string.no_phys_activity);
+        }
+
+        mTodaySetsText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // do nothing
     }
 }

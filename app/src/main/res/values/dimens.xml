@@ -5,7 +5,7 @@
 
     <dimen name="container_padding">12dp</dimen>
     <dimen name="card_padding">16dp</dimen>
-    <dimen name="card_title_margin">12dp</dimen>
+    <dimen name="card_title_margin">18dp</dimen>
     <dimen name="card_padding_relaxed">10dp</dimen>
     <dimen name="card_with_button_bottom_padding">2dp</dimen>
 

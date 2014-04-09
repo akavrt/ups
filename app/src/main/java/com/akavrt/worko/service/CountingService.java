@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.AsyncQueryHandler;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.SensorManager;
@@ -33,6 +34,7 @@ import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * @author Victor Balabanov <akavrt@gmail.com>
@@ -155,17 +157,23 @@ public class CountingService extends Service {
             }
         };
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
         ContentValues values = new ContentValues();
         values.put(WorkoContract.Sets.PULL_UPS, mPullUpsCounter);
-        values.put(WorkoContract.Sets.DAY, calendar.getTimeInMillis() / 1000);
+        values.put(WorkoContract.Sets.DAY, getTodayInMillis(this) / 1000);
 
         handler.startInsert(insertToken, null, WorkoContract.Sets.CONTENT_URI, values);
+    }
+
+    public static long getTodayInMillis(Context context) {
+        Locale currentLocale = context.getResources().getConfiguration().locale;
+
+        Calendar today = Calendar.getInstance(currentLocale);
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        return today.getTimeInMillis();
     }
 
     @Override
@@ -198,7 +206,7 @@ public class CountingService extends Service {
     public void onPullUpsAdjusted(PullUpsAdjustEvent event) {
         Log.d(TAG, "onPullUpsAdjusted(), thread = " + checkThread());
 
-        if (mPullUpsCounter + event.delta >= 0) {
+        if (mPullUpsCounter + event.delta >= 0 && mPullUpsCounter + event.delta < 1000) {
             mPullUpsCounter += event.delta;
             BusProvider.getInstance().post(new PullUpEvent(mPullUpsCounter));
         }

@@ -5,4 +5,5 @@ package com.akavrt.worko;
  */
 public interface OnScrollToTopListener {
     void onScrollToTop();
+    void hideContent();
 }

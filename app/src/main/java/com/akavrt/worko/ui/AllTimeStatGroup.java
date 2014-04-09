@@ -226,4 +226,19 @@ public class AllTimeStatGroup extends FrameLayout {
     public void setRecord(int value) {
         mRecordText.setText(Integer.toString(value));
     }
+
+    public void showValues() {
+        setValuesVisibility(View.VISIBLE);
+    }
+
+    public void hideValues() {
+        setValuesVisibility(View.INVISIBLE);
+    }
+
+    private void setValuesVisibility(int visibility) {
+        mDaysText.setVisibility(visibility);
+        mSetsText.setVisibility(visibility);
+        mPullUpsText.setVisibility(visibility);
+        mRecordText.setVisibility(visibility);
+    }
 }

@@ -1,77 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <TableLayout
         android:id="@+id/card_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_padding"
+        android:stretchColumns="0">
 
-        <TextView
-            android:id="@+id/section_all_time"
-            android:text="@string/section_all_time"
-            style="@style/SectionTitle"/>
-
-        <!-- Days -->
-        <TextView
-            android:id="@+id/all_time_days"
-            android:layout_below="@id/section_all_time"
-            android:layout_marginRight="@dimen/card_padding"
-            android:layout_alignParentRight="true"
-            style="@style/CurrentValue"/>
-
-        <TextView
-            android:id="@+id/all_time_days_title"
-            android:text="@string/days"
-            android:layout_toLeftOf="@id/all_time_days"
-            android:layout_below="@id/section_all_time"
-            style="@style/MetricTitle"/>
-
-        <!-- Sets -->
-        <TextView
-            android:id="@+id/all_time_sets"
-            android:layout_below="@id/all_time_days"
-            android:layout_marginRight="@dimen/card_padding"
-            android:layout_alignParentRight="true"
-            style="@style/CurrentValue"/>
-
-        <TextView
-            android:id="@+id/all_time_sets_title"
-            android:text="@string/trainings"
-            android:layout_toLeftOf="@id/all_time_sets"
-            android:layout_below="@id/all_time_days"
-            style="@style/MetricTitle"/>
+        <TableRow>
+            <TextView
+                android:id="@+id/section_all_time"
+                android:text="@string/section_all_time"
+                style="@style/SectionTitle"/>
+        </TableRow>
 
         <!-- Overall pull-ups -->
-        <TextView
-            android:id="@+id/all_time_total"
-            android:layout_below="@id/all_time_sets"
-            android:layout_marginRight="@dimen/card_padding"
-            android:layout_alignParentRight="true"
-            style="@style/CurrentValue"/>
+        <TableRow>
+            <TextView
+                android:id="@+id/all_time_total_title"
+                android:text="@string/total"
+                style="@style/MetricTitle"/>
 
-        <TextView
-            android:id="@+id/all_time_total_title"
-            android:text="@string/total"
-            android:layout_toLeftOf="@id/all_time_total"
-            android:layout_below="@id/all_time_sets"
-            style="@style/MetricTitle"/>
+            <TextView
+                android:id="@+id/all_time_total"
+                style="@style/CurrentValue"/>
+        </TableRow>
+
+        <!-- Sets -->
+        <TableRow>
+            <TextView
+                android:id="@+id/all_time_sets_title"
+                android:text="@string/trainings"
+                style="@style/MetricTitle"/>
+
+            <TextView
+                android:id="@+id/all_time_sets"
+                style="@style/CurrentValue"/>
+        </TableRow>
+
+        <!-- Days -->
+        <TableRow>
+            <TextView
+                android:id="@+id/all_time_days_title"
+                android:text="@string/days"
+                style="@style/MetricTitle"/>
+
+            <TextView
+                android:id="@+id/all_time_days"
+                style="@style/CurrentValue"/>
+        </TableRow>
 
         <!-- Record -->
-        <TextView
-            android:id="@+id/all_time_record"
-            android:layout_below="@id/all_time_total"
-            android:layout_marginRight="@dimen/card_padding"
-            android:layout_alignParentRight="true"
-            style="@style/CurrentValue"/>
+        <TableRow>
+            <TextView
+                android:id="@+id/all_time_record_title"
+                android:text="@string/record"
+                style="@style/MetricTitle"/>
 
-        <TextView
-            android:id="@+id/all_time_record_title"
-            android:text="@string/record"
-            android:layout_toLeftOf="@id/all_time_record"
-            android:layout_below="@id/all_time_total"
-            style="@style/MetricTitle"/>
+            <TextView
+                android:id="@+id/all_time_record"
+                style="@style/CurrentValue"/>
+        </TableRow>
 
-    </RelativeLayout>
+    </TableLayout>
 
     <ViewStub
         android:id="@+id/stub_card_dialog"
@@ -79,7 +71,8 @@
         android:layout="@layout/layout_reset_stat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" />
+        android:layout_marginTop="@dimen/container_padding"
+        android:layout_gravity="center_vertical"/>
 
     <ImageButton
         android:id="@+id/reset_toggle"
@@ -87,7 +80,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/dots_button"
         android:background="@null"
-        android:paddingLeft="48dp"
-        android:layout_gravity="top|right" />
+        android:paddingTop="@dimen/card_padding"
+        android:paddingLeft="32dp"
+        android:paddingBottom="@dimen/card_padding"
+        android:layout_gravity="top|right"/>
 
 </merge>

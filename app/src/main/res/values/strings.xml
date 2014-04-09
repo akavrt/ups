@@ -40,5 +40,7 @@
     <string name="clear_stat_positive">Yes</string>
     <string name="clear_stat_negative">No</string>
     <string name="clear_stat_toast">Data was cleared</string>
+    <string name="current">Curr</string>
+    <string name="previous">Prev</string>
 
 </resources>
