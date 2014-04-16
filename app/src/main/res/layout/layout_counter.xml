@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CardGroupWithButton">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/section_counter"
         android:text="@string/counter"
         android:layout_marginBottom="10dp"
-        style="@style/SectionTitle" />
+        style="@style/CardPrimaryTitle" />
 
     <!-- Count -->
     <LinearLayout
@@ -45,11 +44,41 @@
         android:layout_below="@id/pull_ups_count_title"
         style="@style/Divider" />
 
-    <!-- Start/Stop -->
-    <Button
-        android:id="@+id/manage_counting"
-        android:layout_below="@id/manage_counting_divider"
-        android:text="@string/start_counting"
-        style="@style/CardButtonWithAccent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/manage_counting_divider" >
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/manage_counting"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/start_counting"
+            android:gravity="center"
+            style="@style/CardButtonWithAccent" />
+
+        <View
+            android:id="@+id/manage_separator"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:visibility="gone"
+            android:background="?dividerVertical" />
+
+        <Button
+            android:id="@+id/record_set"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/card_record_set"
+            android:gravity="center"
+            android:visibility="gone"
+            android:enabled="false"
+            style="@style/CardButtonWithAccent" />
+
+    </LinearLayout>
+
+</merge>

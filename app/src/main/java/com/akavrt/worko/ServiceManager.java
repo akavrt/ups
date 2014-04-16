@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.akavrt.worko.events.PullUpsAdjustEvent;
+import com.akavrt.worko.events.RecordSetEvent;
 import com.akavrt.worko.service.CountingService;
+import com.akavrt.worko.utils.BusProvider;
 
 /**
  * @author Victor Balabanov <akavrt@gmail.com>
@@ -34,5 +37,17 @@ public class ServiceManager {
 
     public boolean isCounting() {
         return CountingService.isRunning();
+    }
+
+    public void decValue() {
+        BusProvider.getInstance().post(new PullUpsAdjustEvent(-1));
+    }
+
+    public void incValue() {
+        BusProvider.getInstance().post(new PullUpsAdjustEvent(1));
+    }
+
+    public void recordSet() {
+        BusProvider.getInstance().post(new RecordSetEvent());
     }
 }

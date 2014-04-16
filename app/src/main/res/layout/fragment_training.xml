@@ -16,18 +16,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include
+            <com.akavrt.worko.ui.CounterGroup
+                android:id="@+id/counter_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/layout_counter"
-                android:layout_marginTop="@dimen/container_padding" />
-
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/layout_today"
                 android:layout_marginTop="@dimen/container_padding"
-                android:layout_marginBottom="@dimen/container_padding" />
+                style="@style/CardGroupWithButton" />
+
+            <com.akavrt.worko.ui.TodayGroup
+                android:id="@+id/today_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/container_padding"
+                android:layout_marginBottom="@dimen/container_padding"
+                style="@style/CardGroup"/>
 
             <!--
             <include

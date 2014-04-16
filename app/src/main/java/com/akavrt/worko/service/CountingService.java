@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -25,6 +26,7 @@ import com.akavrt.worko.R;
 import com.akavrt.worko.events.PullUpEvent;
 import com.akavrt.worko.events.PullUpWorkerEvent;
 import com.akavrt.worko.events.PullUpsAdjustEvent;
+import com.akavrt.worko.events.RecordSetEvent;
 import com.akavrt.worko.provider.WorkoContract;
 import com.akavrt.worko.sensor.CompatSensorHelper;
 import com.akavrt.worko.sensor.SensorHelper;
@@ -42,7 +44,11 @@ import java.util.Locale;
 public class CountingService extends Service {
     private static final String TAG = CountingService.class.getName();
     private static final String THREAD_NAME = "WorkerThread";
+    private static final int STATE_UNINITIALIZED = 0;
+    private static final int STATE_TRANSIENT = 1;
+    private static final int STATE_INITIALIZED = 2;
     private static boolean isRunning;
+    private int mState = STATE_UNINITIALIZED;
     // helpers
     private SensorHelper mSensorHelper;
     private Notificator mNotificator;
@@ -76,15 +82,18 @@ public class CountingService extends Service {
         mNotificator = new Notificator(this);
         startForeground(mNotificator.getId(), mNotificator.build());
 
+        /*
         mPlayer = preparePlayer();
         mSensorHelper = prepareSensorHelper();
 
         prepareWorkerThread();
+        */
 
         BusProvider.getWorkerInstance().register(this);
         BusProvider.getInstance().register(this);
     }
 
+    /*
     private void prepareWorkerThread() {
         mWorkerThread = new HandlerThread(THREAD_NAME, Process.THREAD_PRIORITY_BACKGROUND);
         mWorkerThread.start();
@@ -92,6 +101,7 @@ public class CountingService extends Service {
         Looper serviceLooper = mWorkerThread.getLooper();
         mWorkerHandler = new Handler(serviceLooper);
     }
+    */
 
     private MediaPlayer preparePlayer() {
         MediaPlayer player = MediaPlayer.create(this, R.raw.beep);
@@ -116,7 +126,9 @@ public class CountingService extends Service {
         Log.d(TAG, "onStartCommand(), thread = " + checkThread());
         logIntent(intent);
 
-        mSensorHelper.register(SensorManager.SENSOR_DELAY_GAME, mWorkerHandler);
+//        mSensorHelper.register(SensorManager.SENSOR_DELAY_GAME, mWorkerHandler);
+
+        new InitTask().execute();
 
         return START_STICKY;
     }
@@ -193,6 +205,16 @@ public class CountingService extends Service {
         mUIHandler.sendEmptyMessage(0);
     }
 
+    @Subscribe
+    public void onRecordSet(RecordSetEvent event) {
+        Log.d(TAG, "onRecordSet, thread = " + checkThread());
+
+        storeCount();
+
+        mPullUpsCounter = 0;
+        BusProvider.getInstance().post(new PullUpEvent(mPullUpsCounter));
+    }
+
     private void handlePullUp() {
         mPullUpsCounter++;
         BusProvider.getInstance().post(new PullUpEvent(mPullUpsCounter));
@@ -237,5 +259,51 @@ public class CountingService extends Service {
 
     private static String checkThread() {
         return Thread.currentThread().getName();
+    }
+
+    private static class Holder {
+        private SensorHelper sensorHelper;
+        private MediaPlayer player;
+        private HandlerThread workerThread;
+        private Handler workerHandler;
+    }
+
+    private class InitTask extends AsyncTask<Void, Void, Holder> {
+
+        @Override
+        protected void onPreExecute() {
+            mState = STATE_UNINITIALIZED;
+        }
+
+        @Override
+        protected Holder doInBackground(Void... voids) {
+            mState = STATE_TRANSIENT;
+
+            Holder holder = new Holder();
+
+            holder.player = preparePlayer();
+            holder.sensorHelper = prepareSensorHelper();
+
+            holder.workerThread = new HandlerThread(
+                    THREAD_NAME, Process.THREAD_PRIORITY_BACKGROUND);
+            holder.workerThread.start();
+
+            Looper serviceLooper = holder.workerThread.getLooper();
+            holder.workerHandler = new Handler(serviceLooper);
+
+            return holder;
+        }
+
+        @Override
+        protected void onPostExecute(Holder holder) {
+            mPlayer = holder.player;
+            mSensorHelper = holder.sensorHelper;
+            mWorkerThread = holder.workerThread;
+            mWorkerHandler = holder.workerHandler;
+
+            mSensorHelper.register(SensorManager.SENSOR_DELAY_GAME, mWorkerHandler);
+
+            mState = STATE_INITIALIZED;
+        }
     }
 }

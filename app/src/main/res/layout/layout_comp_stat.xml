@@ -3,86 +3,70 @@
        android:stretchColumns="0">
 
     <TableRow
-        android:layout_marginBottom="0dp">
+        android:layout_marginBottom="12dp">
 
         <TextView
+            android:layout_span="4"
             android:id="@+id/section_title"
             android:layout_marginBottom="0dp"
-            style="@style/SectionTitle"/>
+            style="@style/CardPrimaryTitle"/>
     </TableRow>
 
     <TableRow
-        android:layout_marginBottom="2dp">
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:layout_column="1"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_small"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="normal"
-            android:textAllCaps="true"
-            android:text="@string/current"
-            android:visibility="visible"
-            style="@style/CurrentValue"/>
-
-        <TextView
-            android:layout_column="2"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_small"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="normal"
-            android:textAllCaps="true"
-            android:text="@string/previous"
-            android:visibility="visible"
-            style="@style/CurrentValue"/>
-    </TableRow>
-
-    <TableRow>
-
-        <TextView
-            android:id="@+id/total_title"
             android:text="@string/total"
             style="@style/MetricTitle"/>
 
         <TextView
-            android:id="@+id/total"
-            style="@style/CurrentValue"/>
-
-        <TextView
-            android:id="@+id/total_delta"
-            style="@style/DeltaValue"/>
-    </TableRow>
-
-    <TableRow>
-
-        <TextView
-            android:id="@+id/sets_title"
+            android:layout_column="2"
             android:text="@string/trainings"
             style="@style/MetricTitle"/>
 
         <TextView
-            android:id="@+id/sets"
-            style="@style/CurrentValue"/>
-
-        <TextView
-            android:id="@+id/sets_delta"
-            style="@style/DeltaValue"/>
+            android:layout_column="3"
+            android:text="@string/record"
+            style="@style/MetricTitle"/>
     </TableRow>
 
     <TableRow>
 
         <TextView
-            android:id="@+id/record_title"
-            android:text="@string/record"
-            style="@style/MetricTitle"/>
+            android:id="@+id/current_interval_title"
+            style="@style/IntervalTitle"/>
 
         <TextView
-            android:id="@+id/record"
-            style="@style/CurrentValue"/>
+            android:id="@+id/curr_pull_ups"
+            style="@style/CurrentIntervalValue"/>
 
         <TextView
-            android:id="@+id/record_delta"
-            style="@style/DeltaValue"/>
+            android:id="@+id/curr_sets"
+            style="@style/CurrentIntervalValue"/>
+
+        <TextView
+            android:id="@+id/curr_record"
+            style="@style/CurrentIntervalValue"/>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/previous_interval_title"
+            style="@style/IntervalTitle"/>
+
+        <TextView
+            android:id="@+id/prev_pull_ups"
+            style="@style/PreviousIntervalValue"/>
+
+        <TextView
+            android:id="@+id/prev_sets"
+            style="@style/PreviousIntervalValue"/>
+
+        <TextView
+            android:id="@+id/prev_record"
+            style="@style/PreviousIntervalValue"/>
     </TableRow>
 
 </merge>

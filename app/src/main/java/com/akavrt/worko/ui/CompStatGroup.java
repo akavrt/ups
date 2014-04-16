@@ -18,12 +18,16 @@ import butterknife.InjectView;
  */
 public class CompStatGroup extends TableLayout {
     @InjectView(R.id.section_title) TextView mTitleText;
-    @InjectView(R.id.sets) TextView mSetsText;
-    @InjectView(R.id.sets_delta) TextView mSetsDeltaText;
-    @InjectView(R.id.total) TextView mPullUpsText;
-    @InjectView(R.id.total_delta) TextView mPullUpsDeltaText;
-    @InjectView(R.id.record) TextView mRecordText;
-    @InjectView(R.id.record_delta) TextView mRecordDeltaText;
+    // current interval
+    @InjectView(R.id.current_interval_title) TextView mCurrentIntervalText;
+    @InjectView(R.id.curr_pull_ups) TextView mCurrentPullUpsText;
+    @InjectView(R.id.curr_sets) TextView mCurrentSetsText;
+    @InjectView(R.id.curr_record) TextView mCurrentRecordText;
+    // previous interval
+    @InjectView(R.id.previous_interval_title) TextView mPreviousIntervalText;
+    @InjectView(R.id.prev_pull_ups) TextView mPreviousPullUpsText;
+    @InjectView(R.id.prev_sets) TextView mPreviousSetsText;
+    @InjectView(R.id.prev_record) TextView mPreviousRecordText;
 
     public CompStatGroup(Context context) {
         super(context);
@@ -66,50 +70,42 @@ public class CompStatGroup extends TableLayout {
         mTitleText.setText(resId);
     }
 
-    public void setSets(int value) {
-        mSetsText.setText(Integer.toString(value));
+    public void setCurrentIntervalData(int pullUps, int sets, int record) {
+        mCurrentPullUpsText.setText(Integer.toString(pullUps));
+        mCurrentSetsText.setText(Integer.toString(sets));
+        mCurrentRecordText.setText(Integer.toString(record));
     }
 
-    public void setSetsDelta(int value) {
-        mSetsDeltaText.setText(formatValue(value));
+    public void setPreviousIntervalData(int pullUps, int sets, int record) {
+        mPreviousPullUpsText.setText(Integer.toString(pullUps));
+        mPreviousSetsText.setText(Integer.toString(sets));
+        mPreviousRecordText.setText(Integer.toString(record));
     }
 
-    public void setPullUps(int value) {
-        mPullUpsText.setText(Integer.toString(value));
+    public void showIntervals() {
+        setIntervalsVisibility(View.VISIBLE);
     }
 
-    public void setPullUpsDelta(int value) {
-        mPullUpsDeltaText.setText(formatValue(value));
+    public void hideIntervals() {
+        setIntervalsVisibility(View.INVISIBLE);
     }
 
-    public void setRecord(int value) {
-        mRecordText.setText(Integer.toString(value));
+    private void setIntervalsVisibility(int visibility) {
+        mCurrentIntervalText.setVisibility(visibility);
+        mCurrentPullUpsText.setVisibility(visibility);
+        mCurrentSetsText.setVisibility(visibility);
+        mCurrentRecordText.setVisibility(visibility);
+
+        mPreviousIntervalText.setVisibility(visibility);
+        mPreviousPullUpsText.setVisibility(visibility);
+        mPreviousSetsText.setVisibility(visibility);
+        mPreviousRecordText.setVisibility(visibility);
     }
 
-    public void setRecordDelta(int value) {
-        mRecordDeltaText.setText(formatValue(value));
-    }
-
-    private static String formatValue(int value) {
-        return value < 10000
-                ? Integer.toString(value)
-                : String.format("%.1fk", value / (double) 1000);
-    }
-
-    public void showValues() {
-        setValuesVisibility(View.VISIBLE);
-    }
-
-    public void hideValues() {
-        setValuesVisibility(View.INVISIBLE);
-    }
-
-    private void setValuesVisibility(int visibility) {
-        mSetsText.setVisibility(visibility);
-        mSetsDeltaText.setVisibility(visibility);
-        mPullUpsText.setVisibility(visibility);
-        mPullUpsDeltaText.setVisibility(visibility);
-        mRecordText.setVisibility(visibility);
-        mRecordDeltaText.setVisibility(visibility);
+    public void setIntervalTitles(
+            CharSequence currentIntervalTitle,
+            CharSequence previousIntervalTitle) {
+        mCurrentIntervalText.setText(currentIntervalTitle);
+        mPreviousIntervalText.setText(previousIntervalTitle);
     }
 }

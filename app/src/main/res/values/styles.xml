@@ -36,23 +36,29 @@
         <item name="android:layout_marginRight">@dimen/card_padding_relaxed</item>
     </style>
 
-    <style name="CardGroupWithButton">
+    <style name="CardGroupBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/card_padding</item>
-        <item name="android:paddingBottom">@dimen/card_with_button_bottom_padding</item>
         <item name="android:background">@drawable/card_background</item>
     </style>
 
-    <style name="CardGroup" parent="@style/CardGroupWithButton">
+    <style name="CardGroup" parent="@style/CardGroupBase">
+        <item name="android:paddingTop">@dimen/card_padding_top</item>
         <item name="android:paddingBottom">@dimen/card_padding</item>
     </style>
 
-    <style name="SectionTitle">
+    <style name="CardGroupWithButton" parent="@style/CardGroupBase">
+        <item name="android:paddingTop">@dimen/card_padding_top</item>
+        <item name="android:paddingBottom">@dimen/card_with_button_bottom_padding</item>
+    </style>
+
+    <style name="CardGroupWithDialog" parent="@style/CardGroupBase"/>
+
+    <style name="CardPrimaryTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:textColor">@color/card_title_text</item>
+        <item name="android:textSize">@dimen/text_size_card_title</item>
+        <item name="android:textColor">@color/card_primary_title_text</item>
         <item name="android:singleLine">true</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:layout_marginLeft">@dimen/card_padding</item>
@@ -60,16 +66,31 @@
         <item name="android:layout_marginBottom">@dimen/card_title_margin</item>
     </style>
 
-    <style name="MetricTitle">
+    <style name="CardSecondaryTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/card_secondary_title_text</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginLeft">@dimen/card_padding</item>
+        <item name="android:layout_marginRight">@dimen/card_padding</item>
+    </style>
+
+    <style name="IntervalTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/card_padding</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textColor">@color/card_primary_text</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:visibility">visible</item>
     </style>
 
-    <style name="CurrentValue">
+    <style name="CurrentIntervalValue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">@dimen/card_padding</item>
@@ -78,20 +99,33 @@
         <item name="android:textStyle">bold</item>
         <item name="android:text">@string/default_value</item>
         <item name="android:gravity">center</item>
-        <item name="android:visibility">invisible</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:visibility">visible</item>
     </style>
 
-    <style name="DeltaValue">
+    <style name="PreviousIntervalValue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginRight">@dimen/card_padding</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textColor">@color/card_secondary_text</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:text">@string/default_value</item>
         <item name="android:gravity">center</item>
-        <item name="android:visibility">invisible</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="MetricTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/card_padding</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/card_primary_text</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="CardButton">
@@ -125,11 +159,12 @@
     <style name="CardDialogText"/>
 
     <style name="CardDialogTitle" parent="@style/CardDialogText">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textColor">@color/card_primary_text</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="CardDialogMessage" parent="@style/CardDialogTitle">

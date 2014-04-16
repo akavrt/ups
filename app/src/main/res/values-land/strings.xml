@@ -3,5 +3,7 @@
 
     <string name="current">CURRENT</string>
     <string name="previous">PREVIOUS</string>
+    <string name="stop_counting">Stop training</string>
+    <string name="card_record_set">Record set</string>
 
 </resources>

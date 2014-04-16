@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="total">Повторения</string>
+    <string name="trainings">Подходы</string>
+    <string name="pull_ups">повтор.</string>
+    <!--<string name="stop_counting">Завершить тренировку</string>-->
+    <!--<string name="card_record_set">Записать результат</string>-->
+
+</resources>

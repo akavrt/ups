@@ -2,9 +2,11 @@
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_card_title">25sp</dimen>
 
     <dimen name="container_padding">12dp</dimen>
     <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_padding_top">12dp</dimen>
     <dimen name="card_title_margin">18dp</dimen>
     <dimen name="card_padding_relaxed">10dp</dimen>
     <dimen name="card_with_button_bottom_padding">2dp</dimen>
@@ -12,7 +14,7 @@
     <dimen name="delta_width">50dp</dimen>
 
     <dimen name="counter_text_size">90dp</dimen>
-    <dimen name="counter_units_text_size">32dp</dimen>
+    <dimen name="counter_units_text_size">@dimen/text_size_card_title</dimen>
 
     <dimen name="adjust_button_width">70dp</dimen>
 </resources>

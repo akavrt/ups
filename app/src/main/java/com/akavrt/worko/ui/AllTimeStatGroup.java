@@ -29,23 +29,20 @@ import butterknife.InjectView;
  * @author Victor Balabanov <akavrt@gmail.com>
  */
 public class AllTimeStatGroup extends FrameLayout {
-    private static final String TAG = AllTimeStatGroup.class.getName();
-
     private static final String SUPER_STATE = "super_state";
     private static final String IS_IN_DIALOG_MODE = "is_in_dialog_mode";
 
+    @InjectView(R.id.last_reset) TextView mLastResetText;
     @InjectView(R.id.reset_toggle) ImageButton mResetToggleButton;
     @InjectView(R.id.card_content) ViewGroup mCardContent;
-    @InjectView(R.id.all_time_days) TextView mDaysText;
-    @InjectView(R.id.all_time_sets) TextView mSetsText;
-    @InjectView(R.id.all_time_total) TextView mPullUpsText;
-    @InjectView(R.id.all_time_record) TextView mRecordText;
-    private View mCardDialog;
-    private Button mDialogPositiveButton;
-    private Button mDialogNegativeButton;
-    private int mShortAnimationDuration;
+    @InjectView(R.id.days) TextView mDaysText;
+    @InjectView(R.id.pull_ups) TextView mPullUpsText;
+    @InjectView(R.id.sets) TextView mSetsText;
+    @InjectView(R.id.record) TextView mRecordText;
     private boolean mIsInDialogMode;
     private boolean mIsDialogInflated;
+    private View mCardDialog;
+    private int mShortAnimationDuration;
     private Drawable mStaticDotsDrawable;
     private Drawable mDynamicDotsDrawable;
 
@@ -112,10 +109,10 @@ public class AllTimeStatGroup extends FrameLayout {
         mIsDialogInflated = true;
 
         mCardDialog = ((ViewStub) findViewById(R.id.stub_card_dialog)).inflate();
-        mDialogPositiveButton = (Button) mCardDialog.findViewById(R.id.clear_stats_positive);
-        mDialogNegativeButton = (Button) mCardDialog.findViewById(R.id.clear_stats_negative);
+        Button positiveButton = (Button) mCardDialog.findViewById(R.id.clear_stats_positive);
+        Button negativeButton = (Button) mCardDialog.findViewById(R.id.clear_stats_negative);
 
-        mDialogPositiveButton.setOnClickListener(new OnClickListener() {
+        positiveButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -123,7 +120,7 @@ public class AllTimeStatGroup extends FrameLayout {
             }
         });
 
-        mDialogNegativeButton.setOnClickListener(new OnClickListener() {
+        negativeButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -211,34 +208,29 @@ public class AllTimeStatGroup extends FrameLayout {
         return needToHandle;
     }
 
-    public void setDays(int value) {
-        mDaysText.setText(Integer.toString(value));
+    public void setData(int days, int pullUps, int sets, int record) {
+        mDaysText.setText(Integer.toString(days));
+        mPullUpsText.setText(Integer.toString(pullUps));
+        mSetsText.setText(Integer.toString(sets));
+        mRecordText.setText(Integer.toString(record));
     }
 
-    public void setSets(int value) {
-        mSetsText.setText(Integer.toString(value));
+    public void setLastResetDate(String formattedDate) {
+        mLastResetText.setText(formattedDate);
     }
 
-    public void setPullUps(int value) {
-        mPullUpsText.setText(Integer.toString(value));
-    }
-
-    public void setRecord(int value) {
-        mRecordText.setText(Integer.toString(value));
-    }
-
-    public void showValues() {
+    public void showData() {
         setValuesVisibility(View.VISIBLE);
     }
 
-    public void hideValues() {
+    public void hideData() {
         setValuesVisibility(View.INVISIBLE);
     }
 
     private void setValuesVisibility(int visibility) {
         mDaysText.setVisibility(visibility);
-        mSetsText.setVisibility(visibility);
         mPullUpsText.setVisibility(visibility);
+        mSetsText.setVisibility(visibility);
         mRecordText.setVisibility(visibility);
     }
 }

@@ -25,6 +25,7 @@
                 android:stretchColumns="0"
                 app:titleText="@string/section_week"
                 android:layout_marginTop="@dimen/container_padding"
+                android:visibility="invisible"
                 style="@style/CardGroup"/>
 
             <com.akavrt.worko.ui.CompStatGroup
@@ -34,7 +35,8 @@
                 android:stretchColumns="0"
                 app:titleText="@string/section_month"
                 android:layout_marginTop="@dimen/container_padding"
-                style="@style/CardGroup" />
+                android:visibility="invisible"
+                style="@style/CardGroup"/>
 
             <com.akavrt.worko.ui.AllTimeStatGroup
                 android:id="@+id/all_time_stat"
@@ -43,7 +45,8 @@
                 android:layout_marginTop="@dimen/container_padding"
                 android:layout_marginBottom="@dimen/container_padding"
                 android:paddingTop="0dp"
-                style="@style/CardGroup" />
+                android:visibility="invisible"
+                style="@style/CardGroupWithDialog"/>
 
         </LinearLayout>
 

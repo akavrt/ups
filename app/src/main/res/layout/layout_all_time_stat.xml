@@ -5,62 +5,79 @@
         android:id="@+id/card_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/card_padding"
-        android:stretchColumns="0">
+        android:paddingTop="@dimen/card_padding"
+        android:paddingBottom="@dimen/card_padding"
+        android:stretchColumns="0" >
 
-        <TableRow>
+        <TableRow
+            android:layout_marginBottom="0dp">
+
             <TextView
-                android:id="@+id/section_all_time"
+                android:layout_span="5"
+                android:id="@+id/section_title"
+                android:layout_marginBottom="0dp"
                 android:text="@string/section_all_time"
-                style="@style/SectionTitle"/>
+                style="@style/CardPrimaryTitle"/>
         </TableRow>
 
-        <!-- Overall pull-ups -->
-        <TableRow>
-            <TextView
-                android:id="@+id/all_time_total_title"
-                android:text="@string/total"
-                style="@style/MetricTitle"/>
+        <TableRow
+            android:layout_marginBottom="16dp">
 
             <TextView
-                android:id="@+id/all_time_total"
-                style="@style/CurrentValue"/>
+                android:layout_span="5"
+                android:id="@+id/last_reset"
+                android:text="@string/last_reset"
+                style="@style/CardSecondaryTitle"/>
+
         </TableRow>
 
-        <!-- Sets -->
-        <TableRow>
-            <TextView
-                android:id="@+id/all_time_sets_title"
-                android:text="@string/trainings"
-                style="@style/MetricTitle"/>
+        <TableRow
+            android:layout_marginBottom="4dp">
 
             <TextView
-                android:id="@+id/all_time_sets"
-                style="@style/CurrentValue"/>
-        </TableRow>
-
-        <!-- Days -->
-        <TableRow>
-            <TextView
-                android:id="@+id/all_time_days_title"
+                android:layout_column="1"
                 android:text="@string/days"
                 style="@style/MetricTitle"/>
 
             <TextView
-                android:id="@+id/all_time_days"
-                style="@style/CurrentValue"/>
-        </TableRow>
-
-        <!-- Record -->
-        <TableRow>
-            <TextView
-                android:id="@+id/all_time_record_title"
-                android:text="@string/record"
+                android:layout_column="2"
+                android:text="@string/total"
                 style="@style/MetricTitle"/>
 
             <TextView
-                android:id="@+id/all_time_record"
-                style="@style/CurrentValue"/>
+                android:layout_column="3"
+                android:text="@string/trainings"
+                style="@style/MetricTitle"/>
+
+            <TextView
+                android:layout_column="4"
+                android:text="@string/record"
+                style="@style/MetricTitle"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:id="@+id/days"
+                style="@style/CurrentIntervalValue"/>
+
+            <TextView
+                android:layout_column="2"
+                android:id="@+id/pull_ups"
+                style="@style/CurrentIntervalValue"/>
+
+            <TextView
+                android:layout_column="3"
+                android:id="@+id/sets"
+                style="@style/CurrentIntervalValue"/>
+
+            <TextView
+                android:layout_column="4"
+                android:id="@+id/record"
+                style="@style/CurrentIntervalValue"/>
+
         </TableRow>
 
     </TableLayout>
@@ -71,8 +88,7 @@
         android:layout="@layout/layout_reset_stat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/container_padding"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical" />
 
     <ImageButton
         android:id="@+id/reset_toggle"

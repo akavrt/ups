@@ -15,14 +15,18 @@
 
     <color name="card_primary_text">#707070</color>
     <color name="card_secondary_text">#b8b8b8</color>
-    <color name="card_title_text">@color/card_primary_text</color>
+    <color name="card_primary_title_text">@color/card_primary_text</color>
+    <color name="card_secondary_title_text">#b5b5b5</color>
 
     <!--button colors-->
-    <color name="btn_pressed">#e1699bd9</color>
+    <color name="btn_pressed">#f8f8f8</color>
+    <!--<color name="btn_pressed">#e1699bd9</color>-->
     <!--<color name="btn_normal">#66999999</color>-->
     <color name="btn_normal">@android:color/transparent</color>
     <color name="btn_focused">#66699bd9</color>
-    <color name="btn_disabled">#27999999</color>
+    <color name="btn_disabled">@android:color/transparent</color>
+    <!--<color name="btn_disabled">#27999999</color>-->
     <color name="btn_disabled_focused">#1f699bd9</color>
 
+    <color name="drawer_item_pressed">#ccc</color>
 </resources>

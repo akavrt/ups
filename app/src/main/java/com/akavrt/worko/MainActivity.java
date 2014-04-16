@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -27,7 +26,9 @@ import java.util.List;
  * @author Victor Balabanov <akavrt@gmail.com>
  */
 public class MainActivity extends ActionBarActivity {
+    private static final String TAG = MainActivity.class.getName();
     private static final String CURRENT_ITEM = "current_item";
+
     private interface FragmentTags {
         String TRAINING = "training";
         String STATISTICS = "statistics";
@@ -41,6 +42,7 @@ public class MainActivity extends ActionBarActivity {
     private int mCurrentItem = -1;
     private List<OnBackPressedListener> mBackListeners;
     private boolean mIsReplaceFragment;
+//    private boolean mContentHidden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +101,19 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely closed state. */
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+                getSupportActionBar().setTitle(mDrawerTitle);
+                getCurrentFragment().hideMenuItems();
+            }
+
+            @Override
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mTitle);
-                ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+//                Log.e(TAG, "onDrawerClosed(), mContentHidden = " + mContentHidden);
 
                 if (mIsReplaceFragment) {
                     mIsReplaceFragment = false;
@@ -114,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
                         fragment = new TrainingFragment();
                         tag = FragmentTags.TRAINING;
                     } else {
-                        fragment = new StatsFragment();
+                        fragment = new StatisticsFragment();
                         tag = FragmentTags.STATISTICS;
                     }
 
@@ -123,14 +133,9 @@ public class MainActivity extends ActionBarActivity {
                     fragmentManager.beginTransaction()
                             .replace(R.id.content_frame, fragment, tag)
                             .commit();
+                } else {
+                    getCurrentFragment().showMenuItems();
                 }
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(mDrawerTitle);
-                ActivityCompat.invalidateOptionsMenu(MainActivity.this);
             }
         };
 
@@ -163,6 +168,22 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        /*
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+
+        Log.e(TAG, "onPrepareOptionsMenu(), drawerOpen = " + drawerOpen + ", mContentHidden = " + mContentHidden);
+
+        MenuItem recordSetItem = menu.findItem(R.id.action_record_set);
+        if (recordSetItem != null) {
+            recordSetItem.setVisible(!drawerOpen && !mContentHidden);
+        }
+        */
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -192,16 +213,23 @@ public class MainActivity extends ActionBarActivity {
                 mDrawerList.setItemChecked(mCurrentItem, true);
                 setTitle(mFragmentTitles[mCurrentItem]);
 
-                String tag = prevItem == 0
-                        ? FragmentTags.TRAINING
-                        : FragmentTags.STATISTICS;
-
-                Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-                ((OnScrollToTopListener) fragment).hideContent();
+                getFragment(prevItem).hideContent();
             }
 
             mDrawerLayout.closeDrawer(mDrawerList);
         }
+    }
+
+    private BaseFragment getFragment(int drawerItemIndex) {
+        String tag = drawerItemIndex == 0
+                ? FragmentTags.TRAINING
+                : FragmentTags.STATISTICS;
+
+        return (BaseFragment) getSupportFragmentManager().findFragmentByTag(tag);
+    }
+
+    private BaseFragment getCurrentFragment() {
+        return getFragment(mCurrentItem);
     }
 
     private void selectItem(int position) {
@@ -214,7 +242,7 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new TrainingFragment();
                 tag = FragmentTags.TRAINING;
             } else {
-                fragment = new StatsFragment();
+                fragment = new StatisticsFragment();
                 tag = FragmentTags.STATISTICS;
             }
 

@@ -5,14 +5,14 @@
     <TextView
         android:id="@+id/section_next_training"
         android:text="@string/next_training"
-        style="@style/SectionTitle" />
+        style="@style/CardPrimaryTitle" />
 
     <TextView
         android:id="@+id/next_training_date"
         android:layout_below="@id/section_next_training"
         android:text="@string/next_training_date_stub"
         android:layout_marginBottom="@dimen/card_padding"
-        style="@style/MetricTitle" />
+        style="@style/IntervalTitle" />
 
     <!-- Change schedule-->
     <View

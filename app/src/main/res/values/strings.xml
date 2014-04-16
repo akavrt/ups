@@ -2,28 +2,26 @@
 <resources>
 
     <string name="app_name">Worko</string>
-    <string name="title_activity_main">@string/app_name</string>
     <string name="action_settings">Settings</string>
     <string name="training">Training</string>
     <string name="stats">Statistics</string>
-    <string name="section_week">Week</string>
-    <string name="section_month">Month</string>
+    <string name="section_week">Weekly</string>
+    <string name="section_month">Monthly</string>
     <string name="section_all_time">All time</string>
     <string name="next_training">Next training</string>
     <string name="today">Today</string>
-    <string name="clear_stats">Clear statistics</string>
     <string name="default_value">0</string>
     <string name="trainings">Sets</string>
     <string name="total">Pull-ups</string>
     <string name="record">Record</string>
-    <string name="start_counting">Start counting</string>
-    <string name="stop_counting">Stop counting</string>
+    <string name="start_counting">Start training</string>
+    <string name="stop_counting">Stop</string>
     <string name="next_training_date_stub">Unknown</string>
     <string name="counter">Counter</string>
     <string name="pull_ups">pull-ups</string>
     <string name="change_schedule">Change schedule</string>
     <string name="days">Days</string>
-    <string name="no_phys_activity">No physical activity</string>
+    <string name="no_phys_activity">Start training now!</string>
     <string name="notification_title">Pull-ups</string>
     <string name="notification_default_text">No physical activity.</string>
     <string name="pref_category_title_developer_settings">Developer</string>
@@ -32,15 +30,17 @@
     <string name="settings">Settings</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="title">Title</string>
     <string name="clear_stat_dialog_message">All collected data will be lost</string>
     <string name="clear_stat_dialog_title">Reset statistics?</string>
-    <string name="clear_stat_dialog_positive">Reset</string>
-    <string name="clear_stat_dialog_negative">Cancel</string>
     <string name="clear_stat_positive">Yes</string>
     <string name="clear_stat_negative">No</string>
     <string name="clear_stat_toast">Data was cleared</string>
-    <string name="current">Curr</string>
-    <string name="previous">Prev</string>
+    <string name="last_reset">Last reset -</string>
+    <string name="this_week">This week</string>
+    <string name="last_week">Last week</string>
+    <string name="last_reset_today">Today</string>
+    <string name="last_reset_yesterday">Yesterday</string>
+    <string name="record_set">Record</string>
+    <string name="card_record_set">Record</string>
 
 </resources>
